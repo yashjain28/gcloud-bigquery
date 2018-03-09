@@ -1,0 +1,15 @@
+{
+    "current_version": 8,
+    "dependencies": "BigQuery",
+    "logging_enabled": "false",
+    "name": "Tupdate",
+    "params": [
+        "projectID",
+        "requestBody",
+        "datasetID",
+        "token"
+    ],
+    "permissions": {},
+    "run_user": "",
+    "source": "Tupdate.js"
+}
