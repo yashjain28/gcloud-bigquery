@@ -1,0 +1,8 @@
+{
+    "api": "",
+    "dependencies": "http",
+    "description": "Version 1 lets see!",
+    "name": "BigQuery",
+    "version": 37,
+    "visibility": "system"
+}
