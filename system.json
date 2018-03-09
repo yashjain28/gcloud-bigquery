@@ -1,0 +1,10 @@
+{
+    "auth": true,
+    "deployments": [],
+    "description": "BigQuery is Google's serverless, highly scalable, low cost enterprise data warehouse designed to make all your data analysts productive.",
+    "messaging_url": "staging.clearblade.com:1883",
+    "name": "gcloud-bigquery",
+    "platform_url": "https://staging.clearblade.com",
+    "system_key": "dcceeba90b96d8e78ce6a2a98e33",
+    "system_secret": "DCCEEBA90BF0B3F1C38DBECEFEDD01"
+}
