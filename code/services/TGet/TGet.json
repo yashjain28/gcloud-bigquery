@@ -1,0 +1,14 @@
+{
+    "current_version": 11,
+    "dependencies": "BigQuery",
+    "logging_enabled": "false",
+    "name": "TGet",
+    "params": [
+        "datasetID",
+        "token",
+        "projectID"
+    ],
+    "permissions": {},
+    "run_user": "",
+    "source": "TGet.js"
+}
