@@ -1,0 +1,15 @@
+{
+    "current_version": 11,
+    "dependencies": "BigQuery",
+    "logging_enabled": "false",
+    "name": "TinsertAll",
+    "params": [
+        "datasetID",
+        "tableID",
+        "token",
+        "projectID"
+    ],
+    "permissions": {},
+    "run_user": "",
+    "source": "TinsertAll.js"
+}
