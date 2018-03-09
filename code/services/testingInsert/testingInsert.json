@@ -1,0 +1,13 @@
+{
+    "current_version": 12,
+    "dependencies": "BigQuery",
+    "logging_enabled": "true",
+    "name": "testingInsert",
+    "params": [
+        "token",
+        "projectID"
+    ],
+    "permissions": {},
+    "run_user": "",
+    "source": "testingInsert.js"
+}
