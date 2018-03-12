@@ -1,15 +1,14 @@
 {
-    "current_version": 8,
+    "current_version": 4,
     "dependencies": "BigQuery",
     "logging_enabled": "false",
-    "name": "Tupdate",
+    "name": "ExampleDeleteDataset",
     "params": [
+        "token",
         "projectID",
-        "requestBody",
-        "datasetID",
-        "token"
+        "datasetID"
     ],
     "permissions": {},
     "run_user": "",
-    "source": "Tupdate.js"
+    "source": "ExampleDeleteDataset.js"
 }

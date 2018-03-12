@@ -1,4 +1,4 @@
-function Tupdate(req, resp){
+function ExampleUpdateDataset(req, resp){
     var bQ = new BigQuery(req.params.token);
     var requestBody = {
         "rows":

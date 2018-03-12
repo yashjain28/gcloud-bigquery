@@ -1,6 +1,6 @@
-function TGet(req, resp){
+function ExampleDeleteDataset(req, resp){
     var bQ = new BigQuery(req.params.token);
-    bQ.get(req.params.projectID, req.params.datasetID, function(err, data){
+    bQ.delete(req.params.projectID, req.params.datasetID, function(err, data){
         if(err){
             resp.error(data);
         }

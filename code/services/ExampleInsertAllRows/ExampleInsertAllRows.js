@@ -1,4 +1,4 @@
-function TinsertAll(req, resp){
+function ExampleInsertAllRows(req, resp){
     var bQ = new BigQuery(req.params.token);
     var requestBody = {
         "rows":
