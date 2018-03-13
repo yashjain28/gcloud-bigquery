@@ -1,7 +1,11 @@
 /**
  * BigQuery object requires an API Key
  * 
- * @param {string} auth_key is the API key for Google BigQuery Service, https://cloud.google.com/bigquery/docs/authorization
+ * @param {string} auth_key is the API key for Google BigQuery Service
+ * API key can be generated/accessed by going to this page: https://cloud.google.com/bigquery/docs/authorization
+ * 
+ * Another simple way: Copy and paste the following command 'gcloud auth application-default print-access-token' in Google Cloud Platform shell!
+ * 
  */
 function BigQuery(auth_key){
     this.key = auth_key;
@@ -277,9 +281,8 @@ BigQuery.prototype.list = function(projectID, callback){
  * @param {callback} callback -- callback with function signature: (err, data)
  */
 BigQuery.prototype.update = function(projectID, datasetID, requestBody, callback){
-    if(this.key === ""){
-        callback(true, "Must provide API Key before making requests to Google BigQuery Service.");
-    }
+    
+    _checkKeyValidity(callback);
     var authToken = "Bearer "+ this.key;
     
     var options = {
@@ -299,3 +302,45 @@ BigQuery.prototype.update = function(projectID, datasetID, requestBody, callback
         }
     });
 };
+
+
+/*
+   * Helper functions
+   */
+// Toggle the below two parameters, when running logger locally and dependencies aren't installed!!  
+const PlatformLoggingEnabled = true; 
+const ConsoleLoggingEnabled = false;
+var execute = function (error, response, callback) {
+    if (typeof callback === 'function') {
+        callback(error, response);
+    } else {
+        logger("Did you forget to supply a valid Callback!");
+    }
+};
+
+var logger = function (message) {
+    if (PlatformLoggingEnabled) {
+        log(message);
+    }
+    if(ConsoleLoggingEnabled){
+        console.log(message);
+    }
+    return;
+};
+
+var isObjectEmpty = function (object) {
+    /*jshint forin:false */
+    if (typeof object !== 'object') {
+        return true;
+    }
+    for (var keys in object) {
+        return false;
+    }
+    return true;
+};
+
+var _checkKeyValidity = function(callback){
+    if (this.key === "") {
+        callback(true, "Must provide API Key before making requests to Google BigQuery Service.");
+    }
+}
