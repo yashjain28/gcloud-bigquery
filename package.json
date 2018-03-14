@@ -1,5 +1,6 @@
 {
     "author": {
+        "name":"Yash Jain",
         "email": "yaassh28@gmail.com"
     },
     "clouds": [
@@ -8,7 +9,7 @@
     "description": "BigQuery is Google's serverless, highly scalable, low cost enterprise data warehouse designed to make all your data analysts productive.",
     "domains": [],
     "gateways": [],
-    "image_url": "https://docs.clearblade.com/v/3/static/img/default_package.png",
+    "image_url": "https://imgur.com/a/coN9r",
     "keywords": [
         "clearblade",
         "iot",

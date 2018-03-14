@@ -18,7 +18,10 @@ This is an ipm package, which contains one or more reusable assets within the ip
 
 ## Setup
 
-_Add any setup instructions, such as an API Key_
+API key can be generated/accessed by going to this page: https://cloud.google.com/bigquery/docs/authorization
+ 
+Another simple way: Copy and paste the following command 'gcloud auth application-default print-access-token' in Google Cloud Platform shell!
+
 
 ## API<a name="BigQuery"></a>
 
@@ -180,9 +183,19 @@ For more Information: https://cloud.google.com/bigquery/docs/reference/rest/v2/d
 
 
 ## Usage
-
-_Describe assets_
-
+These are sample services which can be executed once the user setups the dummy environment. Steps to create the same:
+    A. Create a new project
+    B. Create a new dataset in that project by loading custom dataset following the procedure given [here](https://cloud.google.com/bigquery/quickstart-web-ui#download_custom_data). 
+  
+Assets:
+  Services: All services are with-respect-to a project. All the services below shows how to - 
+  1. ExampleDeleteDataset: delete a dataset.
+  2. ExampleGetDataset: get a particular dataset.    
+  3. ExampleInsertDataset: insert a dataset.
+  4. ExampleInsertAllRows: insert rows in a table of dataset.
+  5. ExampleListAllDataset: list all datasets.
+  6. ExampleUpdateDataset: updates(generally replaces) an existing dataset.
+  
 ### Code Services
 
 ### Code Libraries
