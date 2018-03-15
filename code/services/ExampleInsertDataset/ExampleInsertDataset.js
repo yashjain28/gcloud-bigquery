@@ -1,16 +1,14 @@
 /**
  * Pass the following parameters in the request:
- * @param {Object} req
- * req:
- *      projectID: YOUR-PROJECT-NAME
- *      token: YOUR-TOKEN-FOR-BIGQUERY-API
- *      body:
+ * 
+ *  Dataset will be created in the projectID given in options Object during initialization!
+ * @param {Object} requestBody:
         {
             "kind": "bigquery#dataset",
             "etag": etag,
             "id": string,
             "selfLink": string,
-            "datasetReference": {
+            "datasetReference": { 
                 "datasetId": string,
                 "projectId": string
             },
@@ -45,7 +43,14 @@
  * 
  */
 function ExampleInsertDataset(req, resp){
-    var bQ = new BigQuery(req.params.token);
+    var options = {
+        authToken: 'YOUR_BIGQUERY_AUTH_TOKEN' //(is the API key for Google BigQuery Service, https://cloud.google.com/bigquery/docs/authorization)
+        , projectID: 'gentle-impulse-161804'
+        //(optional parameters)
+        , datasetID: 'babynames'
+        , tableID: 'names_2014'
+    };
+    
     var requestBody = {
         "kind": "bigquery#dataset",
         "id": "newDSS",
@@ -55,11 +60,13 @@ function ExampleInsertDataset(req, resp){
         }
     };
   
-  bQ.insert(req.params.projectID, requestBody, function(err, data){
-        if(err){
+    var bQProj = BigQuery(options).initialize();
+    
+    bQProj.Dataset.Insert(requestBody, function (err, data) {
+        if (err) {
             resp.error(data);
         }
-        else{
+        else {
             resp.success(data);
         }
     });

@@ -13,6 +13,13 @@
  * 
  * var project = BigQuery(options).initialize();
  * 
+ * Tip: If user wants to work with 
+ * 1. Another dataset(assuming it exists) in a project then it can be done by:
+ *      var anotherDS = project.Dataset('YOUR_DATASETID'); // returns a Dataset Object !
+ * 2. Another table(assuming it exists) in a dataset then it can be done by:
+ *      var anotherTable = project.Dataset.Table('YOUR_TABLEID');
+ * 
+ * 
  */
 function BigQuery(options) {
     _validateKey();

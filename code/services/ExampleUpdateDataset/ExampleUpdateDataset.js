@@ -1,11 +1,6 @@
 /**
- * Pass the following parameters in the request:
  * @param {Object} req - body contains the dataset you want to replace it with
- * req:
- *      projectID: YOUR-PROJECT-NAME
- *      datasetID: YOUR_DATASETID
- *      token: YOUR-TOKEN-FOR-BIGQUERY-API
- *      body: {
+ * requestBody: {
             "kind": "bigquery#dataset",
             "etag": etag,
             "id": string,
@@ -43,28 +38,23 @@
  * @param {Object} resp 
  */
 function ExampleUpdateDataset(req, resp){
-    var bQ = new BigQuery(req.params.token);
-    // Defining request body here, but can be passed in the request and accessed as req.body
-    var projectID = (req.params.projectID === "") ? "gentle-impulse-161804" : req.params.projectID;
-    var datasetID = (req.params.datasetID === "") ? "new_ds" : req.params.datasetID;
-    var requestBody = {
-        "rows":
-            [
-                {
-                    "json":{
-                        "name":"Yash",
-                        "gender":"M",
-                        "count":20
-                    }
-                }
-            ]
-    }
     
-    bQ.update(projectID, datasetID, requestBody, function(err, data){
-        if(err){
+    var options = {
+        authToken: 'YOUR_BIGQUERY_AUTH_TOKEN' //(is the API key for Google BigQuery Service, https://cloud.google.com/bigquery/docs/authorization)
+        , projectID: 'gentle-impulse-161804'
+        //(optional parameters)
+        , datasetID: 'babynames'
+        , tableID: 'names_2014'
+    };
+
+
+    var bQProj = BigQuery(options).initialize();
+var requestBody = { /*with appropriate data in the above format*/ };
+    bQProj.Dataset.Update(requestBody, function (err, data) {
+        if (err) {
             resp.error(data);
         }
-        else{
+        else {
             resp.success(data);
         }
     });

@@ -1,13 +1,7 @@
 /**
  * Pass the following parameters in the request:
- * @param {Object} req
- * req:
- *      projectID: YOUR-PROJECT-NAME
- *      datasetID: YOUR-DATASETID
- *      tableID: YOUR-TABLEID
- *      token: YOUR-TOKEN-FOR-BIGQUERY-API
- *      
- *      body:{
+ * @param {Object}      
+ *      requestBody:{
                 "kind": "bigquery#tableDataInsertAllRequest",
                 "skipInvalidRows": boolean,
                 "ignoreUnknownValues": boolean,
@@ -22,8 +16,8 @@
                 ]
              }
  * 
- * @param {Object} resp 
- * {
+ * @param {Object} resp : expected response
+   {
         "kind": "bigquery#tableDataInsertAllResponse",
         "insertErrors": [
             {
@@ -41,7 +35,13 @@
    }
  */
 function ExampleInsertAllRows(req, resp){
-    var bQ = new BigQuery(req.params.token);
+    var options = {
+        authToken: 'YOUR_BIGQUERY_AUTH_TOKEN' //(is the API key for Google BigQuery Service, https://cloud.google.com/bigquery/docs/authorization)
+        //(optional parameters)
+        , projectID: 'gentle-impulse-161804'
+        , datasetID: 'babynames'
+        , tableID: 'names_2014'
+    };
     var requestBody = {
         "rows":
             [
@@ -54,12 +54,9 @@ function ExampleInsertAllRows(req, resp){
                 }
             ]
     }
-    
-    var projectID = (req.params.projectID==="")?"gentle-impulse-161804":req.params.projectID;
-    var tableID = (req.params.tableID==="")?"names_2014":req.params.tableID;
-    var datasetID = (req.params.datasetID==="")?"babynames":req.params.datasetID;
-    
-    bQ.insertAll(projectID, datasetID, tableID, requestBody, function(err, data){
+    var bQProj = BigQuery(options).initialize();
+
+    bQProj.Dataset.Table.InsertAll(requestBody, function(err, data){
         if(err){
             resp.error(data);
         }

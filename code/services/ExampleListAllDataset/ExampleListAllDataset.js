@@ -1,10 +1,5 @@
 /**
- * Pass the following parameters in the request:
- * @param {Object} req
- * req:
- *      projectID: YOUR-PROJECT-NAME
- *      token: YOUR-TOKEN-FOR-BIGQUERY-API
- *
+ * List All datasets in a project
  * @param {Object} resp - If successful, this method returns a response body with the following structure:
  * {
         "kind": "bigquery#datasetList",
@@ -28,9 +23,16 @@
  */
 
 function ExampleListAllDataset(req, resp){
-    var bQ = new BigQuery(req.params.token);
-    
-    bQ.get(req.params.projectID, function (err, data) {
+    var options = {
+        authToken: 'YOUR_BIGQUERY_AUTH_TOKEN' //(is the API key for Google BigQuery Service, https://cloud.google.com/bigquery/docs/authorization)
+        , projectID: 'gentle-impulse-161804'
+        //(optional parameters)
+        , datasetID: 'babynames'
+        , tableID: 'names_2014'
+    };
+    var bQProj = BigQuery(options).initialize();
+
+    bQProj.Dataset.List(requestBody, function (err, data) {
         if (err) {
             resp.error(data);
         }
