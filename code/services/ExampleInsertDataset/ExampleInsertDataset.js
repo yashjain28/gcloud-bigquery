@@ -1,8 +1,8 @@
 /**
- * Pass the following parameters in the request:
+ *  Creates a new Dataset in the current project!
  * 
- *  Dataset will be created in the projectID given in options Object during initialization!
- * @param {Object} requestBody:
+ * @param {Object} req
+ * requestBody:
         {
             "kind": "bigquery#dataset",
             "etag": etag,
@@ -37,7 +37,7 @@
             "location": string
         }
  * 
- * @param {Object} resp 
+ * @param {callback} resp 
  * If successful, this method returns a Datasets resource in the response body, 
  * or an error message.
  * 

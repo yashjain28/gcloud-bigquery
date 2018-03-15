@@ -1,7 +1,7 @@
 /**
- * 
- * Pass the following parameters in the request:
- * @param {Object} resp 
+ * Deletes the current dataset which is being referenced
+ * @param {Object} req
+ * @param {callback} resp 
  * If successful, this method returns an empty response body.
  */
 

@@ -1,4 +1,5 @@
 /**
+ * Updates i.e. Replaces the current dataset with the passed dataset 
  * @param {Object} req - body contains the dataset you want to replace it with
  * requestBody: {
             "kind": "bigquery#dataset",
@@ -35,7 +36,7 @@
         }
 
  * 
- * @param {Object} resp 
+ * @param {callback} resp 
  */
 function ExampleUpdateDataset(req, resp){
     

@@ -1,6 +1,7 @@
 /**
- *  
- * @param {Object} resp - Dataset Resource object is returned!
+ * Fetches the given dataset in a project 
+ * @param {Object} req
+ * @param {callback} resp - Dataset Resource object is returned!
  */
 function ExampleGetDataset(req, resp){
     var options = {

@@ -126,7 +126,7 @@ function BigQuery(options) {
                             }
                         ]
                     }
-                 * @param {function(err, resp){}} callback 
+                 * @param {callback} callback 
                  * 
                  * @example :- Inside of a ClearBlade service, after the initialization
                     project.Dataset.InsertAll(requestBody, function(err, response){
@@ -158,7 +158,7 @@ function BigQuery(options) {
              * For more Information regarding optional parameters and response structure: 
              * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/get
              * 
-             * @param {function(err, resp){}} callback 
+             * @param {callback} callback 
              * 
              * @returns (in callback) on success, a Dataset resource - https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource
              * 
@@ -188,7 +188,7 @@ function BigQuery(options) {
              * For more Information regarding optional parameters and response structure:
              * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete             *
              * 
-             * @param {function(err, resp){}} callback 
+             * @param {callback} callback 
              * 
              * @example similar to Dataset.Get()
              * 
@@ -207,7 +207,7 @@ function BigQuery(options) {
              * For more Information regarding optional parameters and response structure: 
              * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert             *
              * @param {Object} requestBody 
-             * @param {function(err, resp){}} callback 
+             * @param {callback} callback 
              * 
              * @returns (in callback)
              * on Success: returns a Dataset resource
@@ -305,7 +305,7 @@ function BigQuery(options) {
                 "lastModifiedTime": long,
                 "location": string
               }
-            * @param {function(err, resp){}} callback 
+            * @param {callback} callback 
             * 
             * @example :- Inside of a ClearBlade service, after the initialization
               project.Dataset.update(requestBody, function(err, response){
@@ -333,7 +333,7 @@ function BigQuery(options) {
              *  https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
              *
              * 
-             * @param {function(err, resp){}} callback
+             * @param {callback} callback
              * 
              * @example :- Inside of a ClearBlade service, after the initialization
                project.Dataset.List(function(err, response){
@@ -369,7 +369,7 @@ function BigQuery(options) {
          * https://cloud.google.com/bigquery/docs/reference/rest/v2/projects/list
          * 
          * 
-         * @param {function(err, resp){}} callback 
+         * @param {callback} callback 
          * @example :- Inside of a ClearBlade service, after the initialization
                project.List(function(err, response){
                     if(!err){

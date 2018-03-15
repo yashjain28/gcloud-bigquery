@@ -1,6 +1,8 @@
 /**
  * List All datasets in a project
- * @param {Object} resp - If successful, this method returns a response body with the following structure:
+ * @param {Object} req
+ * @param {callback} resp
+ * If successful, this method returns a response body with the following structure:
  * {
         "kind": "bigquery#datasetList",
         "etag": etag,

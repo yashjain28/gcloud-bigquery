@@ -1,6 +1,6 @@
 /**
- * Pass the following parameters in the request:
- * @param {Object}      
+ * Inserts all the rows in the given table
+ * @param {Object} req     
  *      requestBody:{
                 "kind": "bigquery#tableDataInsertAllRequest",
                 "skipInvalidRows": boolean,
@@ -16,7 +16,8 @@
                 ]
              }
  * 
- * @param {Object} resp : expected response
+ * @param {callback} resp 
+ * expected response
    {
         "kind": "bigquery#tableDataInsertAllResponse",
         "insertErrors": [
