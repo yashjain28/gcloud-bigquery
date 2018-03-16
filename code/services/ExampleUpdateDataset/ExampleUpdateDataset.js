@@ -40,23 +40,16 @@
  */
 function ExampleUpdateDataset(req, resp){
     
-    var options = {
-        authToken: 'YOUR_BIGQUERY_AUTH_TOKEN' //(is the API key for Google BigQuery Service, https://cloud.google.com/bigquery/docs/authorization)
-        , projectID: 'gentle-impulse-161804'
-        //(optional parameters)
-        , datasetID: 'babynames'
-        , tableID: 'names_2014'
-    };
+    var AUTH_TOKEN = 'YOUR_AUTH_TOKEN';
+    var PROJECT_ID = 'YOUR_PROJECTID';
+    var dataset = BigQuery(AUTH_TOKEN, PROJECT_ID).Dataset('DATASET_ID');
 
-
-    var bQProj = BigQuery(options).initialize();
-var requestBody = { /*with appropriate data in the above format*/ };
-    bQProj.Dataset.Update(requestBody, function (err, data) {
+    dataset.Update(requestBody, function (err, data) {
         if (err) {
             resp.error(data);
         }
         else {
-            resp.success(data);
+            resp.success(data); // => { body: https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource } 
         }
     });
 }

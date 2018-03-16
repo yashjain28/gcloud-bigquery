@@ -1,21 +1,24 @@
 /**
- * BigQuery object requires an API Key
+ * BigQuery object requires an API Key and a projectID to initialize!
  * 
+ * @param {string} authToken
+ * @param {string} projectID
  * 
- * @example :- Inside of a ClearBlade service
+ * @example Inside of a ClearBlade service
  * 
  * var bigQ = BigQuery(authToken, projectID);
+ * 
  *  
  * 
  */
-function BigQuery(options) {
+function BigQuery(authToken, projectID) {
     var options = {
         "authToken": authToken,
         "projectID": projectID
     }
 
     _validateKey();
-    var cbhttp = /*Requests(); */require('https');
+    var cbhttp = Requests(); 
 
 
     var baseUrl = "https://www.googleapis.com/bigquery/v2";
@@ -45,10 +48,13 @@ function BigQuery(options) {
     }
 
     /**
+     * Dataset contains Table and methods for handling datasets
      * 
+     * @param {string} datasetID
      * 
-     * @param {string} datasetID 
-     * @returns {Object} - consists of Table Object and other methods for Dataset Object
+     * @example 
+     * var dataset = BigQuery(authToken, projectID).Dataset('YOUR_DATASET');
+     * 
      */
     function Dataset(datasetID) {
         if (!datasetID || typeof datasetID !== 'string') {
@@ -59,10 +65,14 @@ function BigQuery(options) {
         var tableUrl = urlWithCurrentDataset + '/tables';
 
         /**
-         * 
+         * Table contains methods for handling tables 
          * 
          * @param {string} tableID 
-         * @returns {Object} - consists of methods for the Table Object
+         * 
+         * @example
+         * 
+         * var table = BigQuery(authToken, projectID).Dataset('YOUR_DATASET').Table('YOUR_TABLE');
+         * 
          */
         function Table(tableID) {
             if (!tableID || typeof tableID !== 'string') {
@@ -95,8 +105,8 @@ function BigQuery(options) {
                 }
                 * @param {callback} callback 
                 * 
-                * @example :- Inside of a ClearBlade service, after the initialization
-                project.Dataset.InsertAll(requestBody, function(err, response){
+                * @example Inside of a ClearBlade service, after initialization of the Table object
+                    table.InsertAll(requestBody, function(err, response){
                     if(!err){
                         resp.success(response);
                     }
@@ -111,8 +121,6 @@ function BigQuery(options) {
                 var reqOptions = _createRequestObject(currUrl, requestBody);
                 cbhttp.post(reqOptions, callback);
             }
-
-
 
             return {
                 InsertAll
@@ -129,10 +137,10 @@ function BigQuery(options) {
          * 
          * @returns (in callback) on success, a Dataset resource - https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource
          * 
-         * @example :- Inside of a ClearBlade service, after the initialization
-            project.Dataset.Get(function(err, response){
+         * @example Inside of a ClearBlade service, after the initialization
+            dataset.Get(function(err, response){
                 if(!err){
-                    resp.success(response); 
+                    resp.success(response);
                 } 
                 else{
                     resp.error(err); 
@@ -157,16 +165,14 @@ function BigQuery(options) {
          * 
          * @param {callback} callback 
          * 
-         * @example similar to Dataset.Get()
+         * @example similar to dataset.Get()
          * 
          */
         function Delete(callback) {
-        var reqOptions = _createRequestObject(urlWithCurrentDataset);
-        cbhttp.delete(reqOptions, callback);
+            var reqOptions = _createRequestObject(urlWithCurrentDataset);
+            cbhttp.delete(reqOptions, callback);
         }
-
        
-
         /**
         * Update: Updates information in an existing dataset. The update method replaces the entire dataset resource,
         * whereas the patch method only replaces fields that are provided in the submitted dataset resource.
@@ -211,8 +217,8 @@ function BigQuery(options) {
             }
         * @param {callback} callback 
         * 
-        * @example :- Inside of a ClearBlade service, after the initialization
-            project.Dataset.update(requestBody, function(err, response){
+        * @example Inside of a ClearBlade service, after the initialization
+            dataset.update(requestBody, function(err, response){
                 if(!err){
                     resp.success(response);
                 }
@@ -227,6 +233,23 @@ function BigQuery(options) {
             cbhttp.put(reqOptions, callback);
         }
 
+        /**
+         * 
+         * 
+         * @param {callback} callback 
+         * 
+         * @example Inside of a ClearBlade service, after the initialization
+            dataset.ListTables(function(err, response){
+                if(!err){
+                    resp.success(response);
+                }
+                else{
+                    resp.error(err);
+                }
+            });
+         * 
+         * 
+         */
         function ListTables(callback) {
             var reqOptions = _createRequestObject(tableUrl);
             cbhttp.get(reqOptions, callback);
@@ -242,7 +265,7 @@ function BigQuery(options) {
     }
 
     /**
-        * Dataset - Insert
+        * BigQuery - InsertDataset
         *
         * Insert - Creates a new empty dataset
         *
@@ -252,11 +275,11 @@ function BigQuery(options) {
         * @param {Object} requestBody 
         * @param {callback} callback 
         * 
-        * @returns (in callback)
+        * (in callback)
         * on Success: returns a Dataset resource
         * on error: returns a error message:  https://cloud.google.com/bigquery/troubleshooting-errors
         * 
-        * @example :- Inside of a ClearBlade service, after the initialization
+        * @example Inside of a ClearBlade service, after the initialization
            var requestBody = {
                "kind": "bigquery#dataset",
                "etag": etag,
@@ -291,7 +314,7 @@ function BigQuery(options) {
                "location": string
            }
 
-           project.Dataset.Insert(requestBody, function(err, response){
+           bigQ.Insert(requestBody, function(err, response){
                if(!err){
                    resp.success(response);
                }
@@ -308,9 +331,9 @@ function BigQuery(options) {
 
 
     /**
-         * Datasets: list
+         * BigQuery: ListDatasets
          *
-         * List: Lists all datasets in the specified project to which you have been granted the READER dataset role.
+         * ListDatasets: Lists all datasets in the specified project to which you have been granted the READER dataset role.
          *
          * For more Information regarding optional parameters and response structure
          *  https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
@@ -318,8 +341,8 @@ function BigQuery(options) {
          * 
          * @param {callback} callback
          * 
-         * @example :- Inside of a ClearBlade service, after the initialization
-             project.Dataset.List(function(err, response){
+         * @example Inside of a ClearBlade service, after the initialization
+             bigQ.List(function(err, response){
                 if(!err){
                     resp.success(response);
                 }
@@ -333,9 +356,6 @@ function BigQuery(options) {
         var reqOptions = _createRequestObject(datasetUrl);
         cbhttp.get(reqOptions, callback);
     }
-
-
-    
     
     return {
        Dataset,

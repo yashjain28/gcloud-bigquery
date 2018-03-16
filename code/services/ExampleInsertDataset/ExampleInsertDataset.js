@@ -43,14 +43,6 @@
  * 
  */
 function ExampleInsertDataset(req, resp){
-    var options = {
-        authToken: 'YOUR_BIGQUERY_AUTH_TOKEN' //(is the API key for Google BigQuery Service, https://cloud.google.com/bigquery/docs/authorization)
-        , projectID: 'gentle-impulse-161804'
-        //(optional parameters)
-        , datasetID: 'babynames'
-        , tableID: 'names_2014'
-    };
-    
     var requestBody = {
         "kind": "bigquery#dataset",
         "id": "newDSS",
@@ -60,14 +52,16 @@ function ExampleInsertDataset(req, resp){
         }
     };
   
-    var bQProj = BigQuery(options).initialize();
-    
-    bQProj.Dataset.Insert(requestBody, function (err, data) {
+    var AUTH_TOKEN = 'YOUR_AUTH_TOKEN';
+    var PROJECT_ID = 'YOUR_PROJECTID';
+    var bigquery = BigQuery(AUTH_TOKEN, PROJECT_ID);
+
+    bigquery.InsertDataset(requestBody, function (err, data) {
         if (err) {
             resp.error(data);
         }
         else {
-            resp.success(data);
+            resp.success(data); //=> As shown above! 
         }
     });
 }

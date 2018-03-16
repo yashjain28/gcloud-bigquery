@@ -17,165 +17,175 @@ This is an ipm package, which contains one or more reusable assets within the ip
 [Browse ipm Packages](https://ipm.clearblade.com)
 
 ## Setup
-
-API key can be generated/accessed by going to this page: https://cloud.google.com/bigquery/docs/authorization
+If you already have a GCloud account and the CLI set up, API key can be generated/accessed by going to this page: https://cloud.google.com/bigquery/docs/authorization
  
 Another simple way: Copy and paste the following command 'gcloud auth application-default print-access-token' in Google Cloud Platform shell!
 
 
 ## API<a name="BigQuery"></a>
+<a name="bigQuery"></a>
 
-## Functions
+## bigQuery ⇒ [<code>bigQuery</code>](#bigQuery)
+BigQuery object requires an API Key and a projectID to initialize!
 
-<dl>
-<dt><a href="#BigQuery">BigQuery(options)</a> ⇒ <code>Object</code></dt>
-<dd><p>BigQuery object requires an API Key</p>
-</dd>
-<dt><a href="#ExampleDeleteDataset">ExampleDeleteDataset(req, resp)</a></dt>
-<dd><p>Deletes the current dataset which is being referenced</p>
-</dd>
-<dt><a href="#ExampleGetDataset">ExampleGetDataset(req, resp)</a></dt>
-<dd><p>Fetches the given dataset in a project</p>
-</dd>
-<dt><a href="#ExampleInsertAllRows">ExampleInsertAllRows(req, resp)</a></dt>
-<dd><p>Inserts all the rows in the given table</p>
-</dd>
-<dt><a href="#ExampleInsertDataset">ExampleInsertDataset(req, resp)</a></dt>
-<dd><p>Creates a new Dataset in the current project!</p>
-</dd>
-<dt><a href="#ExampleListAllDataset">ExampleListAllDataset(req, resp)</a></dt>
-<dd><p>List All datasets in a project</p>
-</dd>
-<dt><a href="#ExampleUpdateDataset">ExampleUpdateDataset(req, resp)</a></dt>
-<dd><p>Updates i.e. Replaces the current dataset with the passed dataset</p>
-</dd>
-</dl>
+**Kind**: global typedef  
+**Returns**: [<code>bigQuery</code>](#bigQuery) - - a bigquery instance is returned on instantiation!  
 
-<a name="BigQuery"></a>
+| Param | Type |
+| --- | --- |
+| authToken | <code>string</code> | 
+| projectID | <code>string</code> | 
 
-## BigQuery(options) ⇒ <code>Object</code>
-BigQuery object requires an API Key
+**Properties**
 
-**Kind**: global function  
-**Returns**: <code>Object</code> - Project  
-
-| Param | Type | Description |
+| Name | Type | Description |
 | --- | --- | --- |
-| options | <code>Object</code> | {      authToken: YOUR_BIGQUERY_AUTH_TOKEN (is the API key for Google BigQuery Service, https://cloud.google.com/bigquery/docs/authorization)      (optional parameters)      ,projectID: YOUR_PROJECT_ID      ,datasetID: DATASET_IN_ABOVE_PROJECT      ,tableID: TABLE_IN_ABOVE_DATASET  } |
+| Table | <code>table</code> | a table object |
+| Dataset | <code>dataset</code> | a dataset object |
 
 **Example**  
 ```js
 :- Inside of a ClearBlade service
 
-var project = BigQuery(options).initialize();
+var bigQ = BigQuery(authToken, projectID);
 
-Tip: If user wants to work with 
-1. Another dataset(assuming it exists) in a project then it can be done by:
-     var anotherDS = project.Dataset('YOUR_DATASETID'); // returns a Dataset Object !
-2. Another table(assuming it exists) in a dataset then it can be done by:
-     var anotherTable = project.Dataset.Table('YOUR_TABLEID');
+ 
 ```
+<a name="bigQuery"></a>
 
-* [BigQuery(options)](#BigQuery) ⇒ <code>Object</code>
-    * [~Project(projectID)](#BigQuery..Project) ⇒ <code>Object</code>
-        * [~Dataset(datasetID)](#BigQuery..Project..Dataset) ⇒ <code>Object</code>
-            * [~Table(tableID)](#BigQuery..Project..Dataset..Table) ⇒ <code>Object</code>
-                * [~InsertAll(requestBody, callback)](#BigQuery..Project..Dataset..Table..InsertAll)
-            * [~Get(callback)](#BigQuery..Project..Dataset..Get) ⇒
-            * [~Delete(callback)](#BigQuery..Project..Dataset..Delete)
-            * [~Insert(requestBody, callback)](#BigQuery..Project..Dataset..Insert) ⇒
-            * [~Update(requestBody, callback)](#BigQuery..Project..Dataset..Update)
-            * [~List(callback)](#BigQuery..Project..Dataset..List)
-        * [~List(callback)](#BigQuery..Project..List)
+## bigQuery ⇒ [<code>bigQuery</code>](#bigQuery)
+BigQuery object requires an API Key and a projectID to initialize!
 
-<a name="BigQuery..Project"></a>
-
-### BigQuery~Project(projectID) ⇒ <code>Object</code>
-**Kind**: inner method of [<code>BigQuery</code>](#BigQuery)  
-**Returns**: <code>Object</code> - - consists of Dataset Object and other methods for Project Object  
+**Kind**: global typedef  
+**Returns**: [<code>bigQuery</code>](#bigQuery) - - a bigquery instance is returned on instantiation!  
 
 | Param | Type |
 | --- | --- |
+| authToken | <code>string</code> | 
 | projectID | <code>string</code> | 
 
+**Properties**
 
-* [~Project(projectID)](#BigQuery..Project) ⇒ <code>Object</code>
-    * [~Dataset(datasetID)](#BigQuery..Project..Dataset) ⇒ <code>Object</code>
-        * [~Table(tableID)](#BigQuery..Project..Dataset..Table) ⇒ <code>Object</code>
-            * [~InsertAll(requestBody, callback)](#BigQuery..Project..Dataset..Table..InsertAll)
-        * [~Get(callback)](#BigQuery..Project..Dataset..Get) ⇒
-        * [~Delete(callback)](#BigQuery..Project..Dataset..Delete)
-        * [~Insert(requestBody, callback)](#BigQuery..Project..Dataset..Insert) ⇒
-        * [~Update(requestBody, callback)](#BigQuery..Project..Dataset..Update)
-        * [~List(callback)](#BigQuery..Project..Dataset..List)
-    * [~List(callback)](#BigQuery..Project..List)
+| Name | Type | Description |
+| --- | --- | --- |
+| Table | <code>table</code> | a table object |
+| Dataset | <code>dataset</code> | a dataset object |
 
-<a name="BigQuery..Project..Dataset"></a>
+**Example**  
+```js
+:- Inside of a ClearBlade service
 
-#### Project~Dataset(datasetID) ⇒ <code>Object</code>
-**Kind**: inner method of [<code>Project</code>](#BigQuery..Project)  
-**Returns**: <code>Object</code> - - consists of Table Object and other methods for Dataset Object  
+var bigQ = BigQuery(authToken, projectID);
+
+ 
+```
+<a name="BigQuery"></a>
+
+## BigQuery(authToken, projectID)
+BigQuery object requires an API Key and a projectID to initialize!
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| authToken | <code>string</code> | 
+| projectID | <code>string</code> | 
+
+**Example**  
+```js
+:- Inside of a ClearBlade service
+
+var bigQ = BigQuery(authToken, projectID);
+
+ 
+```
+
+* [BigQuery(authToken, projectID)](#BigQuery)
+    * [~Dataset(datasetID)](#BigQuery..Dataset)
+        * [~Table(tableID)](#BigQuery..Dataset..Table)
+            * [~InsertAll(requestBody, callback)](#BigQuery..Dataset..Table..InsertAll)
+        * [~Get(callback)](#BigQuery..Dataset..Get) ⇒
+        * [~Delete(callback)](#BigQuery..Dataset..Delete)
+        * [~Update(requestBody, callback)](#BigQuery..Dataset..Update)
+        * [~ListTables(callback)](#BigQuery..Dataset..ListTables)
+    * [~InsertDataset(requestBody, callback)](#BigQuery..InsertDataset)
+    * [~ListDatasets(callback)](#BigQuery..ListDatasets)
+
+<a name="BigQuery..Dataset"></a>
+
+### BigQuery~Dataset(datasetID)
+Dataset contains Table and methods for handling datasets
+
+**Kind**: inner method of [<code>BigQuery</code>](#BigQuery)  
 
 | Param | Type |
 | --- | --- |
 | datasetID | <code>string</code> | 
 
+**Example**  
+```js
+var dataset = BigQuery(authToken, projectID).Dataset('YOUR_DATASET');
+```
 
-* [~Dataset(datasetID)](#BigQuery..Project..Dataset) ⇒ <code>Object</code>
-    * [~Table(tableID)](#BigQuery..Project..Dataset..Table) ⇒ <code>Object</code>
-        * [~InsertAll(requestBody, callback)](#BigQuery..Project..Dataset..Table..InsertAll)
-    * [~Get(callback)](#BigQuery..Project..Dataset..Get) ⇒
-    * [~Delete(callback)](#BigQuery..Project..Dataset..Delete)
-    * [~Insert(requestBody, callback)](#BigQuery..Project..Dataset..Insert) ⇒
-    * [~Update(requestBody, callback)](#BigQuery..Project..Dataset..Update)
-    * [~List(callback)](#BigQuery..Project..Dataset..List)
+* [~Dataset(datasetID)](#BigQuery..Dataset)
+    * [~Table(tableID)](#BigQuery..Dataset..Table)
+        * [~InsertAll(requestBody, callback)](#BigQuery..Dataset..Table..InsertAll)
+    * [~Get(callback)](#BigQuery..Dataset..Get) ⇒
+    * [~Delete(callback)](#BigQuery..Dataset..Delete)
+    * [~Update(requestBody, callback)](#BigQuery..Dataset..Update)
+    * [~ListTables(callback)](#BigQuery..Dataset..ListTables)
 
-<a name="BigQuery..Project..Dataset..Table"></a>
+<a name="BigQuery..Dataset..Table"></a>
 
-##### Dataset~Table(tableID) ⇒ <code>Object</code>
-**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Project..Dataset)  
-**Returns**: <code>Object</code> - - consists of methods for the Table Object  
+#### Dataset~Table(tableID)
+Table contains methods for handling tables
+
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
 
 | Param | Type |
 | --- | --- |
 | tableID | <code>string</code> | 
 
-<a name="BigQuery..Project..Dataset..Table..InsertAll"></a>
+**Example**  
+```js
+var table = BigQuery(authToken, projectID).Dataset('YOUR_DATASET').Table('YOUR_TABLE');
+```
+<a name="BigQuery..Dataset..Table..InsertAll"></a>
 
-###### Table~InsertAll(requestBody, callback)
+##### Table~InsertAll(requestBody, callback)
 Tabledata: insertAll
 insertAll - Streams data into BigQuery one record at a time without needing to run a load job.
 
 For more Information regarding optional parameters and response structure: 
 https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll
 
-**Kind**: inner method of [<code>Table</code>](#BigQuery..Project..Dataset..Table)  
+**Kind**: inner method of [<code>Table</code>](#BigQuery..Dataset..Table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| requestBody | <code>Object</code> | {                         "kind": "bigquery#tableDataInsertAllRequest",                         "skipInvalidRows": boolean,                         "ignoreUnknownValues": boolean,                         "templateSuffix": string,                         "rows": [                             {                                 "insertId": string,                                 "json": {                                     (key): (value)                                 }                             }                         ]                     } |
+| requestBody | <code>Object</code> | {                     "kind": "bigquery#tableDataInsertAllRequest",                     "skipInvalidRows": boolean,                     "ignoreUnknownValues": boolean,                     "templateSuffix": string,                     "rows": [                         {                             "insertId": string,                             "json": {                                 (key): (value)                             }                         }                     ]                 } |
 | callback | <code>callback</code> |  |
 
 **Example**  
 ```js
-:- Inside of a ClearBlade service, after the initialization
-                    project.Dataset.InsertAll(requestBody, function(err, response){
-                        if(!err){
-                            resp.success(response);
-                        }
-                        else{
-                            resp.error(err);
-                        }
-                   });
+:- Inside of a ClearBlade service, after initialization of the Table object
+                    table.InsertAll(requestBody, function(err, response){
+                    if(!err){
+                        resp.success(response);
+                    }
+                    else{
+                        resp.error(err);
+                    }
+                });
 ```
-<a name="BigQuery..Project..Dataset..Get"></a>
+<a name="BigQuery..Dataset..Get"></a>
 
-##### Dataset~Get(callback) ⇒
+#### Dataset~Get(callback) ⇒
 Datasets.Get - Returns the dataset specified by datasetID
 For more Information regarding optional parameters and response structure: 
 https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/get
 
-**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Project..Dataset)  
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
 **Returns**: (in callback) on success, a Dataset resource - https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource  
 
 | Param | Type |
@@ -185,18 +195,18 @@ https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/get
 **Example**  
 ```js
 :- Inside of a ClearBlade service, after the initialization
-                project.Dataset.Get(function(err, response){
-                    if(!err){
-                        resp.success(response); 
-                    } 
-                    else{
-                        resp.error(err); 
-                    }
-                });
+            dataset.Get(function(err, response){
+                if(!err){
+                    resp.success(response);
+                } 
+                else{
+                    resp.error(err); 
+                }
+            });
 ```
-<a name="BigQuery..Project..Dataset..Delete"></a>
+<a name="BigQuery..Dataset..Delete"></a>
 
-##### Dataset~Delete(callback)
+#### Dataset~Delete(callback)
 Datasets - Delete
 
 Deletes the dataset specified by the datasetId value. Before you can delete a dataset,
@@ -207,7 +217,7 @@ Immediately after deletion, you can create another dataset with the same name.
 For more Information regarding optional parameters and response structure:
 https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete             *
 
-**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Project..Dataset)  
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
 
 | Param | Type |
 | --- | --- |
@@ -215,12 +225,61 @@ https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete        
 
 **Example**  
 ```js
-similar to Dataset.Get()
+similar to dataset.Get()
 ```
-<a name="BigQuery..Project..Dataset..Insert"></a>
+<a name="BigQuery..Dataset..Update"></a>
 
-##### Dataset~Insert(requestBody, callback) ⇒
-Dataset - Insert
+#### Dataset~Update(requestBody, callback)
+Update: Updates information in an existing dataset. The update method replaces the entire dataset resource,
+whereas the patch method only replaces fields that are provided in the submitted dataset resource.
+
+For more Information regarding optional parameters and response structure: 
+https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/update
+
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| requestBody | <code>Object</code> | Should provide Dataset resource object with the format             {             "kind": "bigquery#dataset",             "etag": etag,             "id": string,             "selfLink": string,             "datasetReference": {                 "datasetId": string,                 "projectId": string             },             "friendlyName": string,             "description": string,             "defaultTableExpirationMs": long,             "labels": {                 (key): string             },             "access": [                 {                 "role": string,                 "userByEmail": string,                 "groupByEmail": string,                 "domain": string,                 "specialGroup": string,                 "view": {                     "projectId": string,                     "datasetId": string,                     "tableId": string                 }                 }             ],             "creationTime": long,             "lastModifiedTime": long,             "location": string             } |
+| callback | <code>callback</code> |  |
+
+**Example**  
+```js
+:- Inside of a ClearBlade service, after the initialization
+            dataset.update(requestBody, function(err, response){
+                if(!err){
+                    resp.success(response);
+                }
+                else{
+                    resp.error(err);
+                }
+            });
+```
+<a name="BigQuery..Dataset..ListTables"></a>
+
+#### Dataset~ListTables(callback)
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>callback</code> | 
+
+**Example**  
+```js
+Inside of a ClearBlade service, after the initialization
+            dataset.ListTables(function(err, response){
+                if(!err){
+                    resp.success(response);
+                }
+                else{
+                    resp.error(err);
+                }
+            });
+```
+<a name="BigQuery..InsertDataset"></a>
+
+### BigQuery~InsertDataset(requestBody, callback)
+BigQuery - InsertDataset
 
 Insert - Creates a new empty dataset
 
@@ -228,54 +287,179 @@ Insert - Creates a new empty dataset
 For more Information regarding optional parameters and response structure: 
 https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert             *
 
-**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Project..Dataset)  
-**Returns**: (in callback)
-on Success: returns a Dataset resource
-on error: returns a error message:  https://cloud.google.com/bigquery/troubleshooting-errors  
+**Kind**: inner method of [<code>BigQuery</code>](#BigQuery)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| requestBody | <code>Object</code> |  |
+| callback | <code>callback</code> | (in callback) on Success: returns a Dataset resource on error: returns a error message:  https://cloud.google.com/bigquery/troubleshooting-errors |
+
+**Example**  
+```js
+:- Inside of a ClearBlade service, after the initialization
+           var requestBody = {
+               "kind": "bigquery#dataset",
+               "etag": etag,
+               "id": string,
+               "selfLink": string,
+               "datasetReference": {
+                   "datasetId": string,
+                   "projectId": string
+               },
+               "friendlyName": string,
+               "description": string,
+               "defaultTableExpirationMs": long,
+               "labels": {
+                   (key): string
+               },
+               "access": [
+                   {
+                   "role": string,
+                   "userByEmail": string,
+                   "groupByEmail": string,
+                   "domain": string,
+                   "specialGroup": string,
+                   "view": {
+                       "projectId": string,
+                       "datasetId": string,
+                       "tableId": string
+                   }
+                   }
+               ],
+               "creationTime": long,
+               "lastModifiedTime": long,
+               "location": string
+           }
+
+           bigQ.Insert(requestBody, function(err, response){
+               if(!err){
+                   resp.success(response);
+               }
+               else{
+                   resp.error(err);
+               }
+           });
+```
+<a name="BigQuery..ListDatasets"></a>
+
+### BigQuery~ListDatasets(callback)
+BigQuery: ListDatasets
+
+ListDatasets: Lists all datasets in the specified project to which you have been granted the READER dataset role.
+
+For more Information regarding optional parameters and response structure
+ https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
+
+**Kind**: inner method of [<code>BigQuery</code>](#BigQuery)  
 
 | Param | Type |
 | --- | --- |
-| requestBody | <code>Object</code> | 
 | callback | <code>callback</code> | 
 
 **Example**  
 ```js
 :- Inside of a ClearBlade service, after the initialization
-                var requestBody = {
-                    "kind": "bigquery#dataset",
-                    "etag": etag,
-                    "id": string,
-                    "selfLink": string,
-                    "datasetReference": {
-                        "datasetId": string,
-                        "projectId": string
-                    },
-                    "friendlyName": string,
-                    "description": string,
-                    "defaultTableExpirationMs": long,
-                    "labels": {
-                        (key): string
-                    },
-                    "access": [
-                        {
-                        "role": string,
-                        "userByEmail": string,
-                        "groupByEmail": string,
-                        "domain": string,
-                        "specialGroup": string,
-                        "view": {
-                            "projectId": string,
-                            "datasetId": string,
-                            "tableId": string
-                        }
-                        }
-                    ],
-                    "creationTime": long,
-                    "lastModifiedTime": long,
-                    "location": string
+             bigQ.List(function(err, response){
+                if(!err){
+                    resp.success(response);
                 }
+                else{
+                    resp.error(err);
+                }
+            })
+ 
+```
+<a name="BigQuery"></a>
 
-                project.Dataset.Insert(requestBody, function(err, response){
+## BigQuery(authToken, projectID)
+BigQuery object requires an API Key and a projectID to initialize!
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| authToken | <code>string</code> | 
+| projectID | <code>string</code> | 
+
+**Example**  
+```js
+Inside of a ClearBlade service
+
+var bigQ = BigQuery(authToken, projectID);
+
+ 
+```
+
+* [BigQuery(authToken, projectID)](#BigQuery)
+    * [~Dataset(datasetID)](#BigQuery..Dataset)
+        * [~Table(tableID)](#BigQuery..Dataset..Table)
+            * [~InsertAll(requestBody, callback)](#BigQuery..Dataset..Table..InsertAll)
+        * [~Get(callback)](#BigQuery..Dataset..Get) ⇒
+        * [~Delete(callback)](#BigQuery..Dataset..Delete)
+        * [~Update(requestBody, callback)](#BigQuery..Dataset..Update)
+        * [~ListTables(callback)](#BigQuery..Dataset..ListTables)
+    * [~InsertDataset(requestBody, callback)](#BigQuery..InsertDataset)
+    * [~ListDatasets(callback)](#BigQuery..ListDatasets)
+
+<a name="BigQuery..Dataset"></a>
+
+### BigQuery~Dataset(datasetID)
+Dataset contains Table and methods for handling datasets
+
+**Kind**: inner method of [<code>BigQuery</code>](#BigQuery)  
+
+| Param | Type |
+| --- | --- |
+| datasetID | <code>string</code> | 
+
+**Example**  
+```js
+var dataset = BigQuery(authToken, projectID).Dataset('YOUR_DATASET');
+```
+
+* [~Dataset(datasetID)](#BigQuery..Dataset)
+    * [~Table(tableID)](#BigQuery..Dataset..Table)
+        * [~InsertAll(requestBody, callback)](#BigQuery..Dataset..Table..InsertAll)
+    * [~Get(callback)](#BigQuery..Dataset..Get) ⇒
+    * [~Delete(callback)](#BigQuery..Dataset..Delete)
+    * [~Update(requestBody, callback)](#BigQuery..Dataset..Update)
+    * [~ListTables(callback)](#BigQuery..Dataset..ListTables)
+
+<a name="BigQuery..Dataset..Table"></a>
+
+#### Dataset~Table(tableID)
+Table contains methods for handling tables
+
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
+
+| Param | Type |
+| --- | --- |
+| tableID | <code>string</code> | 
+
+**Example**  
+```js
+var table = BigQuery(authToken, projectID).Dataset('YOUR_DATASET').Table('YOUR_TABLE');
+```
+<a name="BigQuery..Dataset..Table..InsertAll"></a>
+
+##### Table~InsertAll(requestBody, callback)
+Tabledata: insertAll
+insertAll - Streams data into BigQuery one record at a time without needing to run a load job.
+
+For more Information regarding optional parameters and response structure: 
+https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll
+
+**Kind**: inner method of [<code>Table</code>](#BigQuery..Dataset..Table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| requestBody | <code>Object</code> | {                     "kind": "bigquery#tableDataInsertAllRequest",                     "skipInvalidRows": boolean,                     "ignoreUnknownValues": boolean,                     "templateSuffix": string,                     "rows": [                         {                             "insertId": string,                             "json": {                                 (key): (value)                             }                         }                     ]                 } |
+| callback | <code>callback</code> |  |
+
+**Example**  
+```js
+Inside of a ClearBlade service, after initialization of the Table object
+                    table.InsertAll(requestBody, function(err, response){
                     if(!err){
                         resp.success(response);
                     }
@@ -284,45 +468,179 @@ on error: returns a error message:  https://cloud.google.com/bigquery/troublesho
                     }
                 });
 ```
-<a name="BigQuery..Project..Dataset..Update"></a>
+<a name="BigQuery..Dataset..Get"></a>
 
-##### Dataset~Update(requestBody, callback)
+#### Dataset~Get(callback) ⇒
+Datasets.Get - Returns the dataset specified by datasetID
+For more Information regarding optional parameters and response structure: 
+https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/get
+
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
+**Returns**: (in callback) on success, a Dataset resource - https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>callback</code> | 
+
+**Example**  
+```js
+Inside of a ClearBlade service, after the initialization
+            dataset.Get(function(err, response){
+                if(!err){
+                    resp.success(response);
+                } 
+                else{
+                    resp.error(err); 
+                }
+            });
+```
+<a name="BigQuery..Dataset..Delete"></a>
+
+#### Dataset~Delete(callback)
+Datasets - Delete
+
+Deletes the dataset specified by the datasetId value. Before you can delete a dataset,
+you must delete all its tables, either manually or by specifying deleteContents.
+Immediately after deletion, you can create another dataset with the same name.
+
+
+For more Information regarding optional parameters and response structure:
+https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete             *
+
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
+
+| Param | Type |
+| --- | --- |
+| callback | <code>callback</code> | 
+
+**Example**  
+```js
+similar to dataset.Get()
+```
+<a name="BigQuery..Dataset..Update"></a>
+
+#### Dataset~Update(requestBody, callback)
 Update: Updates information in an existing dataset. The update method replaces the entire dataset resource,
 whereas the patch method only replaces fields that are provided in the submitted dataset resource.
 
 For more Information regarding optional parameters and response structure: 
 https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/update
 
-**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Project..Dataset)  
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| requestBody | <code>Object</code> | Should provide Dataset resource object with the format               {                 "kind": "bigquery#dataset",                 "etag": etag,                 "id": string,                 "selfLink": string,                 "datasetReference": {                     "datasetId": string,                     "projectId": string                 },                 "friendlyName": string,                 "description": string,                 "defaultTableExpirationMs": long,                 "labels": {                     (key): string                 },                 "access": [                     {                     "role": string,                     "userByEmail": string,                     "groupByEmail": string,                     "domain": string,                     "specialGroup": string,                     "view": {                         "projectId": string,                         "datasetId": string,                         "tableId": string                     }                     }                 ],                 "creationTime": long,                 "lastModifiedTime": long,                 "location": string               } |
+| requestBody | <code>Object</code> | Should provide Dataset resource object with the format             {             "kind": "bigquery#dataset",             "etag": etag,             "id": string,             "selfLink": string,             "datasetReference": {                 "datasetId": string,                 "projectId": string             },             "friendlyName": string,             "description": string,             "defaultTableExpirationMs": long,             "labels": {                 (key): string             },             "access": [                 {                 "role": string,                 "userByEmail": string,                 "groupByEmail": string,                 "domain": string,                 "specialGroup": string,                 "view": {                     "projectId": string,                     "datasetId": string,                     "tableId": string                 }                 }             ],             "creationTime": long,             "lastModifiedTime": long,             "location": string             } |
 | callback | <code>callback</code> |  |
 
 **Example**  
 ```js
-:- Inside of a ClearBlade service, after the initialization
-              project.Dataset.update(requestBody, function(err, response){
-                  if(!err){
-                      resp.success(response);
-                  }
-                  else{
-                      resp.error(err);
-                  }
-              });
+Inside of a ClearBlade service, after the initialization
+            dataset.update(requestBody, function(err, response){
+                if(!err){
+                    resp.success(response);
+                }
+                else{
+                    resp.error(err);
+                }
+            });
 ```
-<a name="BigQuery..Project..Dataset..List"></a>
+<a name="BigQuery..Dataset..ListTables"></a>
 
-##### Dataset~List(callback)
-Datasets: list
+#### Dataset~ListTables(callback)
+**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Dataset)  
 
-List: Lists all datasets in the specified project to which you have been granted the READER dataset role.
+| Param | Type |
+| --- | --- |
+| callback | <code>callback</code> | 
+
+**Example**  
+```js
+Inside of a ClearBlade service, after the initialization
+            dataset.ListTables(function(err, response){
+                if(!err){
+                    resp.success(response);
+                }
+                else{
+                    resp.error(err);
+                }
+            });
+```
+<a name="BigQuery..InsertDataset"></a>
+
+### BigQuery~InsertDataset(requestBody, callback)
+BigQuery - InsertDataset
+
+Insert - Creates a new empty dataset
+
+
+For more Information regarding optional parameters and response structure: 
+https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert             *
+
+**Kind**: inner method of [<code>BigQuery</code>](#BigQuery)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| requestBody | <code>Object</code> |  |
+| callback | <code>callback</code> | (in callback) on Success: returns a Dataset resource on error: returns a error message:  https://cloud.google.com/bigquery/troubleshooting-errors |
+
+**Example**  
+```js
+Inside of a ClearBlade service, after the initialization
+           var requestBody = {
+               "kind": "bigquery#dataset",
+               "etag": etag,
+               "id": string,
+               "selfLink": string,
+               "datasetReference": {
+                   "datasetId": string,
+                   "projectId": string
+               },
+               "friendlyName": string,
+               "description": string,
+               "defaultTableExpirationMs": long,
+               "labels": {
+                   (key): string
+               },
+               "access": [
+                   {
+                   "role": string,
+                   "userByEmail": string,
+                   "groupByEmail": string,
+                   "domain": string,
+                   "specialGroup": string,
+                   "view": {
+                       "projectId": string,
+                       "datasetId": string,
+                       "tableId": string
+                   }
+                   }
+               ],
+               "creationTime": long,
+               "lastModifiedTime": long,
+               "location": string
+           }
+
+           bigQ.Insert(requestBody, function(err, response){
+               if(!err){
+                   resp.success(response);
+               }
+               else{
+                   resp.error(err);
+               }
+           });
+```
+<a name="BigQuery..ListDatasets"></a>
+
+### BigQuery~ListDatasets(callback)
+BigQuery: ListDatasets
+
+ListDatasets: Lists all datasets in the specified project to which you have been granted the READER dataset role.
 
 For more Information regarding optional parameters and response structure
  https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
 
-**Kind**: inner method of [<code>Dataset</code>](#BigQuery..Project..Dataset)  
+**Kind**: inner method of [<code>BigQuery</code>](#BigQuery)  
 
 | Param | Type |
 | --- | --- |
@@ -330,116 +648,17 @@ For more Information regarding optional parameters and response structure
 
 **Example**  
 ```js
-:- Inside of a ClearBlade service, after the initialization
-               project.Dataset.List(function(err, response){
-                    if(!err){
-                        resp.success(response);
-                    }
-                    else{
-                        resp.error(err);
-                    }
-               })
+Inside of a ClearBlade service, after the initialization
+             bigQ.List(function(err, response){
+                if(!err){
+                    resp.success(response);
+                }
+                else{
+                    resp.error(err);
+                }
+            })
  
 ```
-<a name="BigQuery..Project..List"></a>
-
-#### Project~List(callback)
-Projects - List
-
-Lists all projects to which you have been granted any project role.
-For more Information regarding optional parameters and response structure
-https://cloud.google.com/bigquery/docs/reference/rest/v2/projects/list
-
-**Kind**: inner method of [<code>Project</code>](#BigQuery..Project)  
-
-| Param | Type |
-| --- | --- |
-| callback | <code>callback</code> | 
-
-**Example**  
-```js
-:- Inside of a ClearBlade service, after the initialization
-               project.List(function(err, response){
-                    if(!err){
-                        resp.success(response);
-                    }
-                    else{
-                        resp.error(err);
-                    }
-               })
-```
-<a name="ExampleDeleteDataset"></a>
-
-## ExampleDeleteDataset(req, resp)
-Deletes the current dataset which is being referenced
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| req | <code>Object</code> |  |
-| resp | <code>callback</code> | If successful, this method returns an empty response body. |
-
-<a name="ExampleGetDataset"></a>
-
-## ExampleGetDataset(req, resp)
-Fetches the given dataset in a project
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| req | <code>Object</code> |  |
-| resp | <code>callback</code> | Dataset Resource object is returned! |
-
-<a name="ExampleInsertAllRows"></a>
-
-## ExampleInsertAllRows(req, resp)
-Inserts all the rows in the given table
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| req | <code>Object</code> | requestBody:{                 "kind": "bigquery#tableDataInsertAllRequest",                 "skipInvalidRows": boolean,                 "ignoreUnknownValues": boolean,                 "templateSuffix": string,                 "rows": [                     {                     "insertId": string,                     "json": {                         (key): (value)                     }                     }                 ]              } |
-| resp | <code>callback</code> | expected response    {         "kind": "bigquery#tableDataInsertAllResponse",         "insertErrors": [             {             "index": unsigned integer,             "errors": [                 {                 "reason": string,                 "location": string,                 "debugInfo": string,                 "message": string                 }             ]             }         ]    } |
-
-<a name="ExampleInsertDataset"></a>
-
-## ExampleInsertDataset(req, resp)
-Creates a new Dataset in the current project!
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| req | <code>Object</code> | requestBody:         {             "kind": "bigquery#dataset",             "etag": etag,             "id": string,             "selfLink": string,             "datasetReference": {                  "datasetId": string,                 "projectId": string             },             "friendlyName": string,             "description": string,             "defaultTableExpirationMs": long,             "labels": {                 (key): string             },             "access": [                 {                 "role": string,                 "userByEmail": string,                 "groupByEmail": string,                 "domain": string,                 "specialGroup": string,                 "view": {                     "projectId": string,                     "datasetId": string,                     "tableId": string                 }                 }             ],             "creationTime": long,             "lastModifiedTime": long,             "location": string         } |
-| resp | <code>callback</code> | If successful, this method returns a Datasets resource in the response body,  or an error message. |
-
-<a name="ExampleListAllDataset"></a>
-
-## ExampleListAllDataset(req, resp)
-List All datasets in a project
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| req | <code>Object</code> |  |
-| resp | <code>callback</code> | If successful, this method returns a response body with the following structure: {         "kind": "bigquery#datasetList",         "etag": etag,         "nextPageToken": string,         "datasets": [             {             "kind": "bigquery#dataset",             "id": string,             "datasetReference": {                 "datasetId": string,                 "projectId": string             },             "labels": {                 (key): string             },             "friendlyName": string             }         ]     } |
-
-<a name="ExampleUpdateDataset"></a>
-
-## ExampleUpdateDataset(req, resp)
-Updates i.e. Replaces the current dataset with the passed dataset
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| req | <code>Object</code> | body contains the dataset you want to replace it with requestBody: {             "kind": "bigquery#dataset",             "etag": etag,             "id": string,             "selfLink": string,             "datasetReference": {  //REQUIRED                 "datasetId": string,                 "projectId": string             },             "friendlyName": string,             "description": string,             "defaultTableExpirationMs": long,             "labels": {                 (key): string             },             "access": [                 {                 "role": string,                 "userByEmail": string,                 "groupByEmail": string,                 "domain": string,                 "specialGroup": string,                 "view": {                     "projectId": string,                     "datasetId": string,                     "tableId": string                 }                 }             ],             "creationTime": long,             "lastModifiedTime": long,             "location": string         } |
-| resp | <code>callback</code> |  |
-
 
 
 ## Usage
@@ -447,8 +666,8 @@ These are sample services which can be executed once the user setups the dummy e
     A. Create a new project
     B. Create a new dataset in that project by loading custom dataset following the procedure given [here](https://cloud.google.com/bigquery/quickstart-web-ui#download_custom_data). 
   
-Assets:
-  Services: All services are with-respect-to a project. All the services below shows how to - 
+### Code Services
+Services: All services are with-respect-to a project. All the services below shows how to - 
   1. ExampleDeleteDataset: delete a dataset.
   2. ExampleGetDataset: get a particular dataset.    
   3. ExampleInsertDataset: insert a dataset.
@@ -456,8 +675,6 @@ Assets:
   5. ExampleListAllDataset: list all datasets.
   6. ExampleUpdateDataset: updates(generally replaces) an existing dataset.
   
-### Code Services
-
 ### Code Libraries
 
 ### Portals
