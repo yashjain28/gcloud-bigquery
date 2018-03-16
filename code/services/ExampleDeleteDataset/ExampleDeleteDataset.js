@@ -1,10 +1,3 @@
-/**
- * Deletes the current dataset which is being referenced
- * @param {Object} req
- * @param {callback} resp 
- * If successful, this method returns an empty response body.
- */
-
 function ExampleDeleteDataset(req, resp){
     var AUTH_TOKEN = 'YOUR_AUTH_TOKEN';
     var PROJECT_ID = 'YOUR_PROJECTID';

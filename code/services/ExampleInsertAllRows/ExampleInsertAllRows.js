@@ -1,23 +1,4 @@
-/**
- * Inserts all the rows in the given table
- * @param {Object} req     
- *      requestBody:{
-                "kind": "bigquery#tableDataInsertAllRequest",
-                "skipInvalidRows": boolean,
-                "ignoreUnknownValues": boolean,
-                "templateSuffix": string,
-                "rows": [
-                    {
-                    "insertId": string,
-                    "json": {
-                        (key): (value)
-                    }
-                    }
-                ]
-             }
- * 
- * @param {callback} resp 
- * expected response
+/* expected response
    {
         "kind": "bigquery#tableDataInsertAllResponse",
         "insertErrors": [

@@ -1,8 +1,3 @@
-/**
- * Fetches the given dataset in a project 
- * @param {Object} req
- * @param {callback} resp - Dataset Resource object is returned!
- */
 function ExampleGetDataset(req, resp){
     var AUTH_TOKEN = 'YOUR_AUTH_TOKEN';
     var PROJECT_ID = 'YOUR_PROJECTID';

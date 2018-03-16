@@ -1,47 +1,3 @@
-/**
- *  Creates a new Dataset in the current project!
- * 
- * @param {Object} req
- * requestBody:
-        {
-            "kind": "bigquery#dataset",
-            "etag": etag,
-            "id": string,
-            "selfLink": string,
-            "datasetReference": { 
-                "datasetId": string,
-                "projectId": string
-            },
-            "friendlyName": string,
-            "description": string,
-            "defaultTableExpirationMs": long,
-            "labels": {
-                (key): string
-            },
-            "access": [
-                {
-                "role": string,
-                "userByEmail": string,
-                "groupByEmail": string,
-                "domain": string,
-                "specialGroup": string,
-                "view": {
-                    "projectId": string,
-                    "datasetId": string,
-                    "tableId": string
-                }
-                }
-            ],
-            "creationTime": long,
-            "lastModifiedTime": long,
-            "location": string
-        }
- * 
- * @param {callback} resp 
- * If successful, this method returns a Datasets resource in the response body, 
- * or an error message.
- * 
- */
 function ExampleInsertDataset(req, resp){
     var requestBody = {
         "kind": "bigquery#dataset",
@@ -61,7 +17,7 @@ function ExampleInsertDataset(req, resp){
             resp.error(data);
         }
         else {
-            resp.success(data); //=> As shown above! 
+            resp.success(data); // => { body: https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource } 
         }
     });
 }
