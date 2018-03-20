@@ -12,12 +12,11 @@ function ExampleInsertDataset(req, resp){
     var PROJECT_ID = 'YOUR_PROJECTID';
     var bigquery = BigQuery(AUTH_TOKEN, PROJECT_ID);
 
-    bigquery.InsertDataset(requestBody, function (err, data) {
+    bigquery.insertDataset(requestBody, function (err, data) {
         if (err) {
             resp.error(data);
         }
-        else {
-            resp.success(data); // => { body: https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource } 
-        }
+        resp.success(data); // => { body: https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource } 
+        
     });
 }

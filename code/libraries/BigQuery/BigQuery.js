@@ -4,28 +4,24 @@
  * @param {string} authToken
  * @param {string} projectID
  * 
- * @example Inside of a ClearBlade service
- * 
+ * @example  
  * var bigQ = BigQuery(authToken, projectID);
- * 
- *  
- * 
+ *
  */
 function BigQuery(authToken, projectID) {
     var options = {
         "authToken": authToken,
         "projectID": projectID
     }
-
+    
     _validateKey();
-    var cbhttp = Requests(); 
-
-
-    var baseUrl = "https://www.googleapis.com/bigquery/v2";
-    var projectUrl = baseUrl + '/projects';
-    var urlWithCurrentProject = projectUrl + '/' + projectID;
-    var datasetUrl = urlWithCurrentProject + '/datasets';
-
+    
+    var http = Requests(); 
+    const BASE_URL = "https://www.googleapis.com/bigquery/v2";
+    const PROJECT_URL = BASE_URL + '/projects';
+    const URL_WITH_CURRENT_PROJECT = PROJECT_URL + '/' + projectID;
+    const DATASET_URL = URL_WITH_CURRENT_PROJECT + '/datasets';
+    
     function _validateKey() {
         const BEARER = "Bearer ";
         if (typeof authToken === 'string') {
@@ -61,16 +57,14 @@ function BigQuery(authToken, projectID) {
             throw new Error('Failed to initialized! Incorrect Dataset Information');
         }
 
-        var urlWithCurrentDataset = datasetUrl + '/' + datasetID;
-        var tableUrl = urlWithCurrentDataset + '/tables';
-
+        const URL_WITH_CURRENT_DATASET = DATASET_URL + '/' + datasetID;
+        const TABLE_URL = URL_WITH_CURRENT_DATASET + '/tables';
         /**
          * Table contains methods for handling tables 
          * 
          * @param {string} tableID 
          * 
          * @example
-         * 
          * var table = BigQuery(authToken, projectID).Dataset('YOUR_DATASET').Table('YOUR_TABLE');
          * 
          */
@@ -79,18 +73,24 @@ function BigQuery(authToken, projectID) {
                 throw new Error('Failed to initialized! Incorrect Table Information');
             }
 
-            var urlWithCurrentTable = tableUrl + '/' + tableID;
+            const URL_WITH_CURRENT_TABLE = TABLE_URL + '/' + tableID;
 
             /**
-             * Tabledata: insertAll
-             * insertAll - Streams data into BigQuery one record at a time without needing to run a load job.
-             *
+             * @typedef {Object} TableRowObject 
+             * {@link https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll#request-body}
+             */
+
+            /**
+             * Streams data into BigQuery one record at a time without needing to run a load job.
              * For more Information regarding optional parameters and response structure: 
              * https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll
              *  
-             * @param {Object} requestBody 
-                {
-                    "kind": "bigquery#tableDataInsertAllRequest",
+             * @param {TableRowObject} requestBody Rows to be inserted in the table
+             * @param {callback} callback Provide a function with signature: function(err, response) 
+             * 
+             * @example
+                var requestBody = {
+                    "kind": "bigquery#tableDatainsertAllRequest",
                     "skipInvalidRows": boolean,
                     "ignoreUnknownValues": boolean,
                     "templateSuffix": string,
@@ -103,86 +103,86 @@ function BigQuery(authToken, projectID) {
                         }
                     ]
                 }
-                * @param {callback} callback 
-                * 
-                * @example Inside of a ClearBlade service, after initialization of the Table object
-                    table.InsertAll(requestBody, function(err, response){
-                    if(!err){
-                        resp.success(response);
-                    }
-                    else{
+
+                table.insertAll(requestBody, function(err, response){
+                    if(err){
                         resp.error(err);
                     }
+                    resp.success(response);
                 });
-                * 
-                */
-            function InsertAll(requestBody, callback) {
-                var currUrl = urlWithCurrentTable + '/insertAll';
-                var reqOptions = _createRequestObject(currUrl, requestBody);
-                cbhttp.post(reqOptions, callback);
+             * 
+             */
+            function insertAll(requestBody, callback) {
+                const currUrl = URL_WITH_CURRENT_TABLE + '/insertAll';
+                const reqOptions = _createRequestObject(currUrl, requestBody);
+                http.post(reqOptions, callback);
             }
 
             return {
-                InsertAll
+                insertAll
             }
 
         }
         
         /**
-         * Datasets.Get - Returns the dataset specified by datasetID
+         * Returns the dataset specified by datasetID
          * For more Information regarding optional parameters and response structure: 
          * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/get
          * 
-         * @param {callback} callback 
+         * @param {callback} callback Provide a function with signature: function(err, response) 
          * 
-         * @returns (in callback) on success, a Dataset resource - https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource
-         * 
-         * @example Inside of a ClearBlade service, after the initialization
-            dataset.Get(function(err, response){
-                if(!err){
-                    resp.success(response);
-                } 
-                else{
-                    resp.error(err); 
+         * @example
+            dataset.getDataset(function(err, response){
+                if(err){
+                    resp.error(err);
                 }
+                resp.success(response);
             });
             */
-        function Get(callback) {
-            var reqOptions = _createRequestObject(urlWithCurrentDataset);
-            cbhttp.get(reqOptions, callback);
+        function getDataset(callback) {
+            var reqOptions = _createRequestObject(URL_WITH_CURRENT_DATASET);
+            http.get(reqOptions, callback);
         }
 
         /**
-         * Datasets - Delete
-         *
          * Deletes the dataset specified by the datasetId value. Before you can delete a dataset,
          * you must delete all its tables, either manually or by specifying deleteContents.
          * Immediately after deletion, you can create another dataset with the same name.
-         *
-         * 
          * For more Information regarding optional parameters and response structure:
          * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete             *
          * 
-         * @param {callback} callback 
+         * @param {callback} callback Provide a function with signature: function(err, response) 
          * 
-         * @example similar to dataset.Get()
+         * @example 
+            dataset.deleteDataset(function(err, response){
+                if(err){
+                    resp.error(err);
+                }
+                resp.success(response);
+            });
          * 
          */
-        function Delete(callback) {
-            var reqOptions = _createRequestObject(urlWithCurrentDataset);
-            cbhttp.delete(reqOptions, callback);
+        function deleteDataset(callback) {
+            var reqOptions = _createRequestObject(URL_WITH_CURRENT_DATASET);
+            http.delete(reqOptions, callback);
         }
        
         /**
-        * Update: Updates information in an existing dataset. The update method replaces the entire dataset resource,
+        * @typedef {Object} DatasetResource
+        * {@link https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource}
+        */
+
+        /**
+        * Updates information in an existing dataset. The update method replaces the entire dataset resource,
         * whereas the patch method only replaces fields that are provided in the submitted dataset resource.
-        *
         * For more Information regarding optional parameters and response structure: 
         * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/update
         *
-        *
-        * @param {Object} requestBody - Should provide Dataset resource object with the format
-            {
+        * @param {DatasetResource} requestBody - The DatasetResource should contain the reference dataset 
+        * @param {callback} callback Provide a function with signature: function(err, response) 
+        * 
+        * @example
+            var requestBody = {
             "kind": "bigquery#dataset",
             "etag": etag,
             "id": string,
@@ -215,71 +215,59 @@ function BigQuery(authToken, projectID) {
             "lastModifiedTime": long,
             "location": string
             }
-        * @param {callback} callback 
-        * 
-        * @example Inside of a ClearBlade service, after the initialization
-            dataset.update(requestBody, function(err, response){
-                if(!err){
-                    resp.success(response);
-                }
-                else{
+
+            dataset.updateDataset(requestBody, function(err, response){
+                if(err){
                     resp.error(err);
                 }
+                resp.success(response);
             });
         * 
         */
-        function Update(requestBody, callback) {
-            var reqOptions = _createRequestObject(urlWithCurrentDataset, requestBody);
-            cbhttp.put(reqOptions, callback);
+        function updateDataset(requestBody, callback) {
+            var reqOptions = _createRequestObject(URL_WITH_CURRENT_DATASET, requestBody);
+            http.put(reqOptions, callback);
         }
 
         /**
+         * Lists all tables in the specified dataset. Requires the READER dataset role.
          * 
+         * @param {callback} callback Provide a function with signature: function(err, response) 
          * 
-         * @param {callback} callback 
-         * 
-         * @example Inside of a ClearBlade service, after the initialization
-            dataset.ListTables(function(err, response){
-                if(!err){
-                    resp.success(response);
-                }
-                else{
+         * @example
+            dataset.listTables(function(err, response){
+                if(err){
                     resp.error(err);
                 }
+                resp.success(response);
             });
          * 
          * 
          */
-        function ListTables(callback) {
-            var reqOptions = _createRequestObject(tableUrl);
-            cbhttp.get(reqOptions, callback);
+        function listTables(callback) {
+            var reqOptions = _createRequestObject(TABLE_URL);
+            http.get(reqOptions, callback);
         }
 
         return {
             Table,
-            Get,
-            Delete,
-            Update,
-            ListTables
+            getDataset,
+            deleteDataset,
+            updateDataset,
+            listTables
         };
     }
 
     /**
-        * BigQuery - InsertDataset
-        *
-        * Insert - Creates a new empty dataset
-        *
+        * Creates a new empty dataset
         *
         * For more Information regarding optional parameters and response structure: 
         * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert             *
-        * @param {Object} requestBody 
-        * @param {callback} callback 
         * 
-        * (in callback)
-        * on Success: returns a Dataset resource
-        * on error: returns a error message:  https://cloud.google.com/bigquery/troubleshooting-errors
+        * @param {Object} requestBody The details for the dataset to be inserted in the Project
+        * @param {callback} callback Provide a function with signature: function(err, response)
         * 
-        * @example Inside of a ClearBlade service, after the initialization
+        * @example
            var requestBody = {
                "kind": "bigquery#dataset",
                "etag": etag,
@@ -314,52 +302,45 @@ function BigQuery(authToken, projectID) {
                "location": string
            }
 
-           bigQ.Insert(requestBody, function(err, response){
-               if(!err){
-                   resp.success(response);
-               }
-               else{
+           bigQ.insertDataset(requestBody, function(err, response){
+                if(err){
                    resp.error(err);
-               }
+                }
+                resp.success(response);
            });
            * 
            */
-    function InsertDataset(requestBody, callback) {
-        var reqOptions = _createRequestObject(datasetUrl, requestBody);
-        cbhttp.post(reqOptions, callback);
+    function insertDataset(requestBody, callback) {
+        var reqOptions = _createRequestObject(DATASET_URL, requestBody);
+        http.post(reqOptions, callback);
     }
 
 
     /**
-         * BigQuery: ListDatasets
-         *
-         * ListDatasets: Lists all datasets in the specified project to which you have been granted the READER dataset role.
-         *
-         * For more Information regarding optional parameters and response structure
-         *  https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
-         *
-         * 
-         * @param {callback} callback
-         * 
-         * @example Inside of a ClearBlade service, after the initialization
-             bigQ.List(function(err, response){
-                if(!err){
-                    resp.success(response);
-                }
-                else{
-                    resp.error(err);
-                }
-            })
-            *  
-            */
-    function ListDatasets(callback) {
-        var reqOptions = _createRequestObject(datasetUrl);
-        cbhttp.get(reqOptions, callback);
+     * listDatasets: Lists all datasets in the specified project to which you have been granted the READER dataset role.
+     * For more Information regarding optional parameters and response structure
+     *  https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
+     *
+     * 
+     * @param {callback} callback Provide a function with signature: function(err, response)
+     * 
+     * @example
+         bigQ.listDatasets(function(err, response){
+            if(err){
+                resp.error(err);
+            }
+            resp.success(response);
+        })
+     *  
+     */
+    function listDatasets(callback) {
+        var reqOptions = _createRequestObject(DATASET_URL);
+        http.get(reqOptions, callback);
     }
     
     return {
        Dataset,
-       ListDatasets,
-       InsertDataset
+       listDatasets,
+       insertDataset
     }
 }

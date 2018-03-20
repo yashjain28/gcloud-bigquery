@@ -3,12 +3,10 @@ function ExampleGetDataset(req, resp){
     var PROJECT_ID = 'YOUR_PROJECTID';
     var dataset = BigQuery(AUTH_TOKEN, PROJECT_ID).Dataset('DATASET_TO_FETCH');
 
-    dataset.Get(function (err, data) {
+    dataset.getDataset(function (err, data) {
         if (err) {
             resp.error(data);
         }
-        else {
-            resp.success(data); // => { body: https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource } 
-        }
+        resp.success(data); // => { body: https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource } 
     });
 }
