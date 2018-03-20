@@ -264,7 +264,7 @@ function BigQuery(authToken, projectID) {
         * For more Information regarding optional parameters and response structure: 
         * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert             *
         * 
-        * @param {Object} requestBody The details for the dataset to be inserted in the Project
+        * @param {DatasetResource} requestBody The details for the dataset to be inserted in the Project
         * @param {callback} callback Provide a function with signature: function(err, response)
         * 
         * @example

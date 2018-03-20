@@ -23,22 +23,15 @@ Another simple way: Copy and paste the following command 'gcloud auth applicatio
 
 
 ## API<a name="BigQuery"></a>
-## Functions
-
-<dl>
-<dt><a href="#BigQuery">BigQuery(authToken, projectID)</a></dt>
-<dd><p>BigQuery object requires an API Key and a projectID to initialize!</p>
-</dd>
-</dl>
 
 ## Typedefs
 
 <dl>
 <dt><a href="#TableRowObject">TableRowObject</a> : <code>Object</code></dt>
-<dd><p><a href="https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll#request-body">https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll#request-body</a></p>
+<dd><p><a href="https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll#request-body">Properties</a></p>
 </dd>
 <dt><a href="#DatasetResource">DatasetResource</a> : <code>Object</code></dt>
-<dd><p><a href="https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource">https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource</a></p>
+<dd><p><a href="https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource">Properties</a></p>
 </dd>
 </dl>
 
@@ -283,7 +276,7 @@ https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert        
 
 | Param | Type | Description |
 | --- | --- | --- |
-| requestBody | <code>Object</code> | The details for the dataset to be inserted in the Project |
+| requestBody | [<code>DatasetResource</code>](#DatasetResource) | The details for the dataset to be inserted in the Project |
 | callback | <code>callback</code> | Provide a function with signature: function(err, response) |
 
 **Example**  
@@ -379,14 +372,6 @@ Services: All services are with-respect-to a project. All the services below sho
   4. ExampleInsertAllRows: insert rows in a table of dataset.
   5. ExampleListAllDataset: list all datasets.
   6. ExampleUpdateDataset: updates(generally replaces) an existing dataset.
-  
-### Code Libraries
-
-### Portals
-
-### Collections
-
-### ...
 
 ## Thank you
 
