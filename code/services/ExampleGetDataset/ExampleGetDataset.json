@@ -1,0 +1,10 @@
+{
+    "current_version": 3,
+    "dependencies": "BigQuery",
+    "logging_enabled": "false",
+    "name": "ExampleGetDataset",
+    "params": [],
+    "permissions": {},
+    "run_user": "",
+    "source": "ExampleGetDataset.js"
+}

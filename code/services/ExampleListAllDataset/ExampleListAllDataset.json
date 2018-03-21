@@ -1,15 +1,12 @@
 {
-    "current_version": 11,
+    "current_version": 4,
     "dependencies": "BigQuery",
     "logging_enabled": "false",
-    "name": "TinsertAll",
+    "name": "ExampleListAllDataset",
     "params": [
-        "datasetID",
-        "tableID",
-        "token",
         "projectID"
     ],
     "permissions": {},
     "run_user": "",
-    "source": "TinsertAll.js"
+    "source": "ExampleListAllDataset.js"
 }
