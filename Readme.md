@@ -119,10 +119,6 @@ https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll
 **Example**  
 ```js
 var requestBody = {
-                    "kind": "bigquery#tableDatainsertAllRequest",
-                    "skipInvalidRows": boolean,
-                    "ignoreUnknownValues": boolean,
-                    "templateSuffix": string,
                     "rows": [
                         {
                             "insertId": string,
@@ -204,37 +200,13 @@ https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/update
 **Example**  
 ```js
 var requestBody = {
-            "kind": "bigquery#dataset",
-            "etag": etag,
-            "id": string,
-            "selfLink": string,
-            "datasetReference": {
-                "datasetId": string,
-                "projectId": string
-            },
-            "friendlyName": string,
-            "description": string,
-            "defaultTableExpirationMs": long,
-            "labels": {
-                (key): string
-            },
-            "access": [
-                {
-                "role": string,
-                "userByEmail": string,
-                "groupByEmail": string,
-                "domain": string,
-                "specialGroup": string,
-                "view": {
-                    "projectId": string,
-                    "datasetId": string,
-                    "tableId": string
-                }
-                }
-            ],
-            "creationTime": long,
-            "lastModifiedTime": long,
-            "location": string
+                 "datasetReference":
+                        {
+                            "datasetId": "existingDataset",
+                            "projectId": "gentle-impulse-161804"
+
+                        },
+                "description": "I updated my dataset, added some description!"
             }
 
             dataset.updateDataset(requestBody, function(err, response){
@@ -282,37 +254,10 @@ https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert        
 **Example**  
 ```js
 var requestBody = {
-               "kind": "bigquery#dataset",
-               "etag": etag,
-               "id": string,
-               "selfLink": string,
                "datasetReference": {
-                   "datasetId": string,
-                   "projectId": string
-               },
-               "friendlyName": string,
-               "description": string,
-               "defaultTableExpirationMs": long,
-               "labels": {
-                   (key): string
-               },
-               "access": [
-                   {
-                   "role": string,
-                   "userByEmail": string,
-                   "groupByEmail": string,
-                   "domain": string,
-                   "specialGroup": string,
-                   "view": {
-                       "projectId": string,
-                       "datasetId": string,
-                       "tableId": string
-                   }
-                   }
-               ],
-               "creationTime": long,
-               "lastModifiedTime": long,
-               "location": string
+                   "datasetId": "my_new_dataset",
+                   "projectId": "my_project_Id"
+               }
            }
 
            bigQ.insertDataset(requestBody, function(err, response){

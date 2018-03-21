@@ -1,7 +1,5 @@
 function ExampleInsertDataset(req, resp){
     var requestBody = {
-        "kind": "bigquery#dataset",
-        "id": "newDSS",
         "datasetReference": {
             "datasetId": "newDSS",
             "projectId": "gentle-impulse-161804"
