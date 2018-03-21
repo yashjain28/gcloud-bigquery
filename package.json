@@ -1,25 +1,42 @@
 {
-    "author": {
-        "email": "yaassh28@gmail.com"
-    },
-    "clouds": [
-        "G-Cloud"
-    ],
-    "description": "BigQuery is Google's serverless, highly scalable, low cost enterprise data warehouse designed to make all your data analysts productive.",
-    "domains": [],
-    "gateways": [],
-    "image_url": "https://docs.clearblade.com/v/3/static/img/default_package.png",
-    "keywords": [
-        "clearblade",
-        "iot",
-        "platform",
-        "BigQuery"
-    ],
-    "license": "MIT",
-    "name": "gcloud-bigquery",
-    "private": false,
-    "prog_lang": [],
-    "protocols": [],
-    "things": [],
-    "version": "1.0.0"
+  "author": "Yash Jain <yaassh28@gmail.com>",
+  "clouds": [
+    "G-Cloud"
+  ],
+  "description": "BigQuery is Google's serverless, highly scalable, low cost enterprise data warehouse designed to make all your data analysts productive.",
+  "domains": [],
+  "gateways": [],
+  "image_url": "https://i.imgur.com/PeumrbR.png",
+  "keywords": [
+    "clearblade",
+    "iot",
+    "platform",
+    "BigQuery",
+    "bigQuery",
+    "Cloud",
+    "Database",
+    "Datasets",
+    "Table",
+    "Google",
+    "Serverless"
+
+  ],
+  "license": "MIT",
+  "name": "gcloud-bigquery",
+  "private": false,
+  "prog_lang": [],
+  "protocols": [],
+  "things": [],
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yashjain28/gcloud-bigquery.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yashjain28/gcloud-bigquery/issues"
+  },
+  "homepage": "https://github.com/yashjain28/gcloud-bigquery#readme"
 }
