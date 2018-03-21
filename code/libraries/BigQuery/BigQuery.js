@@ -18,7 +18,7 @@ function BigQuery(authToken, projectID) {
     
     var http = Requests(); 
     const BASE_URL = "https://www.googleapis.com/bigquery/v2";
-    const DATASET_URL = [BASE_URL, 'projects', projectID, 'datasets'].join('/');
+    const DATASET_URL = [ BASE_URL, 'projects', projectID, 'datasets' ].join('/');
     
     function _validateKey() {
         const BEARER = "Bearer";
@@ -56,7 +56,7 @@ function BigQuery(authToken, projectID) {
             throw new Error('Failed to initialized! Incorrect Dataset Information');
         }
 
-        const TABLE_URL = [DATASET_URL, datasetID, 'tables'].join('');
+        const TABLE_URL = [ DATASET_URL, datasetID, 'tables' ].join('');
         /**
          * Table contains methods for handling tables 
          * 
