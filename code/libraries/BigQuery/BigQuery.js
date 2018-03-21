@@ -1,5 +1,5 @@
 /**
- * BigQuery object requires an API Key and a projectID to initialize!
+ * TODO Add description of BigQuery itself
  * 
  * @param {string} authToken
  * @param {string} projectID
@@ -10,22 +10,20 @@
  */
 function BigQuery(authToken, projectID) {
     var options = {
-        "authToken": authToken,
-        "projectID": projectID
+        authToken,
+        projectID
     }
     
     _validateKey();
     
     var http = Requests(); 
     const BASE_URL = "https://www.googleapis.com/bigquery/v2";
-    const PROJECT_URL = BASE_URL + '/projects';
-    const URL_WITH_CURRENT_PROJECT = PROJECT_URL + '/' + projectID;
-    const DATASET_URL = URL_WITH_CURRENT_PROJECT + '/datasets';
+    const DATASET_URL = [BASE_URL, 'projects', projectID, 'datasets'].join('/');
     
     function _validateKey() {
-        const BEARER = "Bearer ";
+        const BEARER = "Bearer";
         if (typeof authToken === 'string') {
-            options.authToken = BEARER + options.authToken;
+            options.authToken = [ BEARER, options.authToken ].join(' ');
         }
         else {
             throw new Error('AuthToken must be defined as a string');
@@ -58,8 +56,7 @@ function BigQuery(authToken, projectID) {
             throw new Error('Failed to initialized! Incorrect Dataset Information');
         }
 
-        const URL_WITH_CURRENT_DATASET = DATASET_URL + '/' + datasetID;
-        const TABLE_URL = URL_WITH_CURRENT_DATASET + '/tables';
+        const TABLE_URL = [DATASET_URL, datasetID, 'tables'].join('');
         /**
          * Table contains methods for handling tables 
          * 
@@ -74,7 +71,7 @@ function BigQuery(authToken, projectID) {
                 throw new Error('Failed to initialized! Incorrect Table Information');
             }
 
-            const URL_WITH_CURRENT_TABLE = TABLE_URL + '/' + tableID;
+            const URL_WITH_CURRENT_TABLE = [ TABLE_URL, tableID ].join('/');
 
             /**
              * @typedef {Object} TableRowObject 
@@ -110,7 +107,7 @@ function BigQuery(authToken, projectID) {
              * 
              */
             function insertAll(requestBody, callback) {
-                const currUrl = URL_WITH_CURRENT_TABLE + '/insertAll';
+                const currUrl = [ URL_WITH_CURRENT_TABLE, 'insertAll' ].join('/');
                 const reqOptions = _createRequestObject(currUrl, requestBody);
                 http.post(reqOptions, callback);
             }
