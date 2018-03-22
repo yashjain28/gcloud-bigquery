@@ -1,12 +1,17 @@
 /**
- * TODO Add description of BigQuery itself
- * 
+ * @typedef BigQuery
+ */
+
+
+/**
+ * BigQuery is Google's serverless, highly scalable, low cost enterprise data warehouse designed to make all your data analysts productive.
  * @param {string} authToken
  * @param {string} projectID
+ * @returns {BigQuery}
  * 
  * @example  
  * var bigQ = BigQuery(authToken, projectID);
- *
+ * 
  */
 function BigQuery(authToken, projectID) {
     var options = {
@@ -42,11 +47,16 @@ function BigQuery(authToken, projectID) {
         return reqOptions;
     }
 
+    /** 
+     * @typedef Dataset
+     */
+
     /**
      * Dataset contains Table and methods for handling datasets
      * 
+     * @memberof BigQuery
      * @param {string} datasetID
-     * 
+     * @returns {Dataset}
      * @example 
      * var dataset = BigQuery(authToken, projectID).Dataset('YOUR_DATASET');
      * 
@@ -56,12 +66,21 @@ function BigQuery(authToken, projectID) {
             throw new Error('Failed to initialized! Incorrect Dataset Information');
         }
 
-        const TABLE_URL = [ DATASET_URL, datasetID, 'tables' ].join('');
+        const URL_WITH_CURRENT_DATASET = [DATASET_URL, datasetID].join('/');
+        const TABLE_URL = [ DATASET_URL, datasetID, 'tables' ].join('/');
+        
+
+
+        /** 
+         * @typedef Table
+         */
+
         /**
          * Table contains methods for handling tables 
-         * 
+         * @memberof Dataset
          * @param {string} tableID 
          * 
+         * @returns {Table}
          * @example
          * var table = BigQuery(authToken, projectID).Dataset('YOUR_DATASET').Table('YOUR_TABLE');
          * 
@@ -264,7 +283,7 @@ function BigQuery(authToken, projectID) {
      * For more Information regarding optional parameters and response structure
      *  https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
      *
-     * 
+     * @memberof BigQuery
      * @param {callback} callback Provide a function with signature: function(err, response)
      * 
      * @example

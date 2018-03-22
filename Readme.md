@@ -3,7 +3,7 @@
 
 ## Overview
 
-BigQuery is Google's serverless, highly scalable, low cost enterprise data warehouse designed to make all your data analysts productive.
+Storing and querying massive datasets can be time consuming and expensive without the right hardware and infrastructure. Google BigQuery is an enterprise data warehouse that solves this problem by enabling super-fast SQL queries using the processing power of Google's infrastructure.
 
 Few keywords and basic knowledge to get started with Google BigQuery:
 1. Projects: Projects are top-level containers in Google Cloud Platform. They store information about billing and authorized users, and they contain BigQuery data. Each project has a name and a unique ID.
