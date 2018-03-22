@@ -1,50 +1,39 @@
-/**
- * @typedef BigQuery
- */
 
 
 /**
  * BigQuery is Google's serverless, highly scalable, low cost enterprise data warehouse designed to make all your data analysts productive.
+ * @typedef BigQuery
  * @param {string} authToken
  * @param {string} projectID
- * @returns {BigQuery}
  * 
  * @example  
  * var bigQ = BigQuery(authToken, projectID);
  * 
  */
 function BigQuery(authToken, projectID) {
-    var options = {
-        authToken,
-        projectID
+
+    if (!_isValidString(authToken)) {
+        throw new Error('AuthToken must be set before calling BigQuery API');
     }
-    
-    _validateKey();
-    
+
     var http = Requests(); 
     const BASE_URL = "https://www.googleapis.com/bigquery/v2";
     const DATASET_URL = [ BASE_URL, 'projects', projectID, 'datasets' ].join('/');
     
-    function _validateKey() {
-        const BEARER = "Bearer";
-        if (typeof authToken === 'string') {
-            options.authToken = [ BEARER, options.authToken ].join(' ');
-        }
-        else {
-            throw new Error('AuthToken must be defined as a string');
-        }
-    }
-
-    function _createRequestObject(requestUrl, requestBody) {
+    function _createRequestObject(token, requestUrl, requestBody) {
         var reqOptions = {
             url: requestUrl,
             headers: {
-                "Authorization": options.authToken,
+                "Authorization": ["Bearer", token].join(' '),
                 "Content-Type": "application/json"
             },
             body: requestBody
         }
         return reqOptions;
+    }
+
+    function _isValidString(str) {
+        return str && (typeof str === 'string');
     }
 
     /** 
@@ -56,21 +45,19 @@ function BigQuery(authToken, projectID) {
      * 
      * @memberof BigQuery
      * @param {string} datasetID
-     * @returns {Dataset}
+     * @returns {Dataset} 
      * @example 
      * var dataset = BigQuery(authToken, projectID).Dataset('YOUR_DATASET');
      * 
      */
     function Dataset(datasetID) {
-        if (!datasetID || typeof datasetID !== 'string') {
+        if (!_isValidString(datasetID)) {
             throw new Error('Failed to initialized! Incorrect Dataset Information');
         }
 
         const URL_WITH_CURRENT_DATASET = [DATASET_URL, datasetID].join('/');
         const TABLE_URL = [ DATASET_URL, datasetID, 'tables' ].join('/');
         
-
-
         /** 
          * @typedef Table
          */
@@ -86,7 +73,7 @@ function BigQuery(authToken, projectID) {
          * 
          */
         function Table(tableID) {
-            if (!tableID || typeof tableID !== 'string') {
+            if (!_isValidString(tableID)) {
                 throw new Error('Failed to initialized! Incorrect Table Information');
             }
 
@@ -94,7 +81,7 @@ function BigQuery(authToken, projectID) {
 
             /**
              * @typedef {Object} TableRowObject 
-             * {@link https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll#request-body}
+             * @link [JSON Properties](https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll#request-body)
              */
 
             /**
@@ -102,32 +89,32 @@ function BigQuery(authToken, projectID) {
              * For more Information regarding optional parameters and response structure: 
              * https://cloud.google.com/bigquery/docs/reference/rest/v2/tabledata/insertAll
              *  
-             * @param {TableRowObject} requestBody Rows to be inserted in the table
+             * @param {TableRowObject} rowsToInsert Rows to be inserted in the table
              * @param {callback} callback Provide a function with signature: function(err, response) 
              * 
              * @example
-                var requestBody = {
-                    "rows": [
-                        {
-                            "insertId": string,
-                            "json": {
-                                (key): (value)
-                            }
-                        }
-                    ]
-                }
-
-                table.insertAll(requestBody, function(err, response){
-                    if(err){
-                        resp.error(err);
-                    }
-                    resp.success(response);
-                });
+             *   var rowsToInsert = {
+             *       "rows": [
+             *           {
+             *               "insertId": string,
+             *               "json": {
+             *                   (key): (value)
+             *               }
+             *           }
+             *       ]
+             *   }
+             *
+             *   table.insertAll(rowsToInsert, function(err, response){
+             *       if(err){
+             *           resp.error(err);
+             *       }
+             *       resp.success(response); // 
+             *   });
              * 
              */
             function insertAll(requestBody, callback) {
                 const currUrl = [ URL_WITH_CURRENT_TABLE, 'insertAll' ].join('/');
-                const reqOptions = _createRequestObject(currUrl, requestBody);
+                const reqOptions = _createRequestObject(authToken, currUrl, requestBody);
                 http.post(reqOptions, callback);
             }
 
@@ -143,17 +130,18 @@ function BigQuery(authToken, projectID) {
          * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/get
          * 
          * @param {callback} callback Provide a function with signature: function(err, response) 
-         * 
+         * @memberof Dataset
          * @example
-            dataset.getDataset(function(err, response){
-                if(err){
-                    resp.error(err);
-                }
-                resp.success(response);
-            });
-            */
+         * dataset.getDataset(function(err, response){
+         *     if(err){
+         *         resp.error(err);
+         *     }
+         *     resp.success(response); // => DatasetResource
+         * });
+         */
         function getDataset(callback) {
-            var reqOptions = _createRequestObject(URL_WITH_CURRENT_DATASET);
+            console.log("auth "+ authToken);
+            var reqOptions = _createRequestObject(authToken, URL_WITH_CURRENT_DATASET);
             http.get(reqOptions, callback);
         }
 
@@ -165,24 +153,24 @@ function BigQuery(authToken, projectID) {
          * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/delete             *
          * 
          * @param {callback} callback Provide a function with signature: function(err, response) 
-         * 
-         * @example 
-            dataset.deleteDataset(function(err, response){
-                if(err){
-                    resp.error(err);
-                }
-                resp.success(response);
-            });
-         * 
+         * @memberof Dataset
+         * @example
+         * dataset.deleteDataset(function(err, response){
+         *     if(err){
+         *         resp.error(err);
+         *     }
+         *     resp.success(response);
+         * });
+         *
          */
         function deleteDataset(callback) {
-            var reqOptions = _createRequestObject(URL_WITH_CURRENT_DATASET);
+            var reqOptions = _createRequestObject(authToken, URL_WITH_CURRENT_DATASET);
             http.delete(reqOptions, callback);
         }
        
         /**
         * @typedef {Object} DatasetResource
-        * {@link https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource}
+        * @link [JSON Properties](https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#resource)
         */
 
         /**
@@ -191,30 +179,30 @@ function BigQuery(authToken, projectID) {
         * For more Information regarding optional parameters and response structure: 
         * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/update
         *
-        * @param {DatasetResource} requestBody - The DatasetResource should contain the reference dataset 
-        * @param {callback} callback Provide a function with signature: function(err, response) 
-        * 
+        * @param {DatasetResource} updateDatasetConfig - The DatasetResource should contain the reference dataset
+        * @param {callback} callback Provide a function with signature: function(err, response)
+        * @memberof Dataset
         * @example
-            var requestBody = {
-                 "datasetReference":
-                        {
-                            "datasetId": "existingDataset",
-                            "projectId": "gentle-impulse-161804"
-
-                        },
-                "description": "I updated my dataset, added some description!"
-            }
-
-            dataset.updateDataset(requestBody, function(err, response){
-                if(err){
-                    resp.error(err);
-                }
-                resp.success(response);
-            });
-        * 
+        * var updateDatasetConfig = {
+        *      "datasetReference":
+        *             {
+        *                 "datasetId": "existingDataset",
+        *                 "projectId": "gentle-impulse-161804"
+        *
+        *              },
+        *      "description": "I updated my dataset, added some description!"
+        * }
+        *
+        * dataset.updateDataset(updateDatasetConfig, function(err, response){
+        *     if(err){
+        *         resp.error(err);
+        *     }
+        *     resp.success(response);
+        * });
+        *
         */
         function updateDataset(requestBody, callback) {
-            var reqOptions = _createRequestObject(URL_WITH_CURRENT_DATASET, requestBody);
+            var reqOptions = _createRequestObject(authToken, URL_WITH_CURRENT_DATASET, requestBody);
             http.put(reqOptions, callback);
         }
 
@@ -222,19 +210,19 @@ function BigQuery(authToken, projectID) {
          * Lists all tables in the specified dataset. Requires the READER dataset role.
          * 
          * @param {callback} callback Provide a function with signature: function(err, response) 
-         * 
+         * @memberof Dataset
          * @example
-            dataset.listTables(function(err, response){
-                if(err){
-                    resp.error(err);
-                }
-                resp.success(response);
-            });
-         * 
-         * 
+         * dataset.listTables(function(err, response){
+         *     if(err){
+         *         resp.error(err);
+         *     }
+         *     resp.success(response);
+         * });
+         *
+         *
          */
         function listTables(callback) {
-            var reqOptions = _createRequestObject(TABLE_URL);
+            var reqOptions = _createRequestObject(authToken, TABLE_URL);
             http.get(reqOptions, callback);
         }
 
@@ -248,55 +236,55 @@ function BigQuery(authToken, projectID) {
     }
 
     /**
-        * Creates a new empty dataset
-        *
-        * For more Information regarding optional parameters and response structure: 
-        * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert             *
-        * 
-        * @param {DatasetResource} requestBody The details for the dataset to be inserted in the Project
-        * @param {callback} callback Provide a function with signature: function(err, response)
-        * 
-        * @example
-           var requestBody = {
-               "datasetReference": {
-                   "datasetId": "my_new_dataset",
-                   "projectId": "my_project_Id"
-               }
-           }
-
-           bigQ.insertDataset(requestBody, function(err, response){
-                if(err){
-                   resp.error(err);
-                }
-                resp.success(response);
-           });
-           * 
-           */
+     * Creates a new empty dataset
+     *
+     * For more Information regarding optional parameters and response structure: 
+     * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/insert             *
+     * 
+     * @param {DatasetResource} newDatasetConfig The details for the dataset to be inserted in the Project
+     * @param {callback} callback Provide a function with signature: function(err, response)
+     * @memberof BigQuery
+     * @example
+     *  var newDatasetConfig = {
+     *      "datasetReference": {
+     *          "datasetId": "my_new_dataset",
+     *          "projectId": "my_project_Id"
+     *      }
+     *  }
+     *
+     * bigQ.insertDataset(newDatasetConfig, function(err, response){
+     *      if(err){
+     *         resp.error(err);
+     *      }
+     *      resp.success(response);
+     * });
+     *
+     */
     function insertDataset(requestBody, callback) {
-        var reqOptions = _createRequestObject(DATASET_URL, requestBody);
+        var reqOptions = _createRequestObject(authToken, DATASET_URL, requestBody);
         http.post(reqOptions, callback);
     }
 
 
     /**
-     * listDatasets: Lists all datasets in the specified project to which you have been granted the READER dataset role.
+     * Lists all datasets in the specified project to which you have been granted the READER dataset role.
      * For more Information regarding optional parameters and response structure
-     *  https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
+     * https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets/list
      *
      * @memberof BigQuery
      * @param {callback} callback Provide a function with signature: function(err, response)
      * 
      * @example
-         bigQ.listDatasets(function(err, response){
-            if(err){
-                resp.error(err);
-            }
-            resp.success(response);
-        })
-     *  
+     *  bigQ.listDatasets(function(err, response){
+     *      if(err){
+     *          resp.error(err);
+     *      }
+     *      resp.success(response);
+     * });
+     *
      */
     function listDatasets(callback) {
-        var reqOptions = _createRequestObject(DATASET_URL);
+        var reqOptions = _createRequestObject(authToken, DATASET_URL);
         http.get(reqOptions, callback);
     }
     

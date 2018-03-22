@@ -1,7 +1,7 @@
 {
   "author": "Yash Jain <yaassh28@gmail.com>",
   "clouds": [
-    "G-Cloud"
+    "GCloud", "Google Cloud"
   ],
   "description": "BigQuery is Google's serverless, highly scalable, low cost enterprise data warehouse designed to make all your data analysts productive.",
   "domains": [],
@@ -18,8 +18,12 @@
     "Datasets",
     "Table",
     "Google",
-    "Serverless"
+    "Serverless",
+    "Big Data"
 
+  ],
+  "asset_types":[
+    "Code Libraries"
   ],
   "license": "MIT",
   "name": "gcloud-bigquery",
