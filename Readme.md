@@ -18,12 +18,27 @@ This is an ipm package, which contains one or more reusable assets within the ip
 [Browse ipm Packages](https://ipm.clearblade.com)
 
 ## Setup
-If you already have a GCloud account and the CLI set up, API key can be generated/accessed by going to this page: https://cloud.google.com/bigquery/docs/authorization
- 
-Another simple way: Copy and paste the following command 'gcloud auth application-default print-access-token' in Google Cloud Platform shell!
+
+### 1. API Key
+
+Access an API Key here:
+https://cloud.google.com/bigquery/docs/authorization
+
+If you have the GCloud CLI, can obtain it by running
+
+```
+gcloud auth application-default print-access-token
+```
+
+### 2. Dataset
+
+- Create a new project
+- Create a new dataset in that project by loading custom dataset following the procedure given [here](https://cloud.google.com/bigquery/quickstart-web-ui#download_custom_data). 
+
+## API
 
 
-## API<a name="BigQuery"></a>
+<a name="BigQuery"></a>
 
 ## Typedefs
 
@@ -314,13 +329,13 @@ These are sample services which can be executed once the user setups the dummy e
     B. Create a new dataset in that project by loading custom dataset following the procedure given [here](https://cloud.google.com/bigquery/quickstart-web-ui#download_custom_data). 
   
 ### Code Services
-Services: All services are with-respect-to a project. All the services below shows how to - 
-  1. ExampleDeleteDataset: delete a dataset.
-  2. ExampleGetDataset: get a particular dataset.    
-  3. ExampleInsertDataset: insert a dataset.
-  4. ExampleInsertAllRows: insert rows in a table of dataset.
-  5. ExampleListAllDataset: list all datasets.
-  6. ExampleUpdateDataset: updates(generally replaces) an existing dataset.
+
+ - `ExampleDeleteDataset` - delete a dataset.
+ - `ExampleGetDataset` - get a particular dataset.    
+ - `ExampleInsertDataset` - insert a dataset.
+ - `ExampleInsertAllRows` - insert rows in a table of dataset.
+ - `ExampleListAllDataset` - list all datasets.
+ - `ExampleUpdateDataset` - updates(generally replaces) an existing dataset.
 
 ## Thank you
 
