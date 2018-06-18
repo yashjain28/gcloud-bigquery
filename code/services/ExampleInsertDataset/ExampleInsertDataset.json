@@ -1,6 +1,6 @@
 {
     "current_version": 4,
-    "dependencies": "BigQuery",
+    "dependencies": "BigQueryLib",
     "logging_enabled": "false",
     "name": "ExampleInsertDataset",
     "params": [],
